@@ -48,7 +48,6 @@ ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/.vimrc .
-ln -sf dotfiles/.vim .
 
-source $HOME/.bash_profile
+source ~/.bash_profile 
 vim +BundleInstall +qall

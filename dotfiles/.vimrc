@@ -31,7 +31,6 @@ syntax enable
 set background=dark
 "colorscheme solarized
 colorscheme jellybeans
-call togglebg#map("<F5>")
 
 filetype plugin indent on     " required!
 

@@ -168,7 +168,7 @@ HISTFILESIZE=2000
 # Make prompt informative
 # See:  http://www.ukuug.org/events/linux2003/papers/bash_tips/
 PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
-PS1='┌─[\[\033[0;32m\]\u\[\033[0;32m\]@\h\[\033[0m\]]───\[\033[0;34m\][\w]\[\033[0m\]───\[\e[0;0m\][${cwd}\t]\[\033[0m\]───\[\033[0m\] ${fill}\n└─\[\033[00;0m\]$(__git_ps1)\[\033[0m\]\$ '
+PS1='┌─[\[\033[0;32m\]\u\[\033[0;32m\]@\h\[\033[0m\]]───\[\033[0;34m\][\w]\[\033[0m\]───\[\e[0;0m\][${cwd}\t]\[\033[0m\]───\[\033[0m\] ${fill}\n└─\[\033[0m\]$(__git_ps1)\[\033[0m\]\$ '
 
 ## -----------------------
 ## -- 2) Set up aliases --
@@ -236,6 +236,14 @@ export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
 ## ------------------------------
 ## -- 3) User-customized code  --
 ## ------------------------------
+
+__git_ps1 () 
+{ 
+    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    if [ -n "$b" ]; then
+        printf " (%s)" "${b##refs/heads/}";
+    fi
+}
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
