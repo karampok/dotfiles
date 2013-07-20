@@ -29,13 +29,14 @@
 
 # Install vim
 sudo apt-get install -y vim  tmux rlwrap 
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 DIR=$PWD
 cd $HOME
 if [ -d ./dotfiles/ ]; then
     mv dotfiles dotfiles.old
 fi
-if [ -d .vim/ ]; then
+if [ -f .vimrc ]; then
     mv .vim .vim_old
     mv .vimrc .vimrc_old
 fi
@@ -50,3 +51,4 @@ ln -sb dotfiles/.vimrc .
 ln -sf dotfiles/.vim .
 
 source $HOME/.bash_profile
+vim +BundleInstall +qall
