@@ -11,23 +11,18 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
-
-" My Bundles here:
-"
-" original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
-" vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-" non github repos
-Bundle 'git://git.wincent.com/command-t.git'
-" ...
-Bundle 'altercation/vim-colors-solarized'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'nanotech/jellybeans.vim'
+"undle 'tpope/vim-fugitive'
+"undle 'Lokaltog/vim-easymotion'
+"undle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"undle 'tpope/vim-rails.git'
+" vim-scripts repos
+"Bundle 'L9'
+"undle 'FuzzyFinder'
+" non github repos
+"undle 'git://git.wincent.com/command-t.git'
+"undle 'altercation/vim-colors-solarized'
 
 
 
