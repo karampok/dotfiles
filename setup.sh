@@ -21,15 +21,16 @@
 ## See: http://nodejs.org/api/repl.html#repl_repl
 #sudo apt-get install -y rlwrap
 
+
+# Install Heroku toolbelt
+# https://toolbelt.heroku.com/debian
+#wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+
 # Install vim
 # https://launchpad.net/~cassou/+archive/emacs
 sudo apt-get install -y vim 
 
-# Install Heroku toolbelt
-# https://toolbelt.heroku.com/debian
-wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-
-# git pull and install dotfiles as well
 DIR=$PWD
 cd $HOME
 if [ -d ./dotfiles/ ]; then
@@ -37,14 +38,15 @@ if [ -d ./dotfiles/ ]; then
 fi
 if [ -d .vim/ ]; then
     mv .vim .vim_old
+    mv .vimrc .vimrc_old
 fi
 
-git clone https://github.com/startup-class/dotfiles.git
 cp -r $PWD/dotfiles .
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
+ln -sb dotfiles/.vimrc .
 ln -sf dotfiles/.vim .
 
