@@ -28,8 +28,7 @@
 
 
 # Install vim
-# https://launchpad.net/~cassou/+archive/emacs
-sudo apt-get install -y vim 
+sudo apt-get install -y vim  tmux rlwrap 
 
 DIR=$PWD
 cd $HOME
@@ -41,7 +40,7 @@ if [ -d .vim/ ]; then
     mv .vimrc .vimrc_old
 fi
 
-cp -r $PWD/dotfiles .
+cp -r $DIR/dotfiles .
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.tmux.conf .
 ln -sb dotfiles/.bash_profile .
