@@ -199,7 +199,7 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias vless='/usr/share/vim/vimcurrent/macros/less.sh'
 alias rec="arecord -f cd  /tmp/trecord ; aplay /tmp/trecord"
-alias tmux='tmux -2'
+alias tmux='tmux -2 -u'
 
 
 # 2.3) Text and editor commands

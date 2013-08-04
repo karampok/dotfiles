@@ -49,5 +49,5 @@ ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sb dotfiles/.vimrc .
 
-source ~/.bash_profile 
 vim +BundleInstall +qall
+echo "source ~/.bash_profile" 
