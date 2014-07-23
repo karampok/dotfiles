@@ -1,53 +1,40 @@
 #!/bin/bash
-# Simple setup.sh for configuring Ubuntu 12.04 LTS EC2 instance
-# for headless setup. 
-
-## Install nvm: node-version manager
-## https://github.com/creationix/nvm
-#sudo apt-get install -y git
-#sudo apt-get install -y curl
-#curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-
-## Load nvm and install latest production node
-#source $HOME/.nvm/nvm.sh
-#nvm install v0.10.12
-#nvm use v0.10.12
-
-## Install jshint to allow checking of JS code within emacs
-## http://jshint.com/
-#npm install -g jshint
-
-## Install rlwrap to provide libreadline features with node
-## See: http://nodejs.org/api/repl.html#repl_repl
-#sudo apt-get install -y rlwrap
+# Simple setup.sh for for headless setup. 
 
 
-# Install Heroku toolbelt
-# https://toolbelt.heroku.com/debian
-#wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-
+has_git=$(which git > /dev/null)
+if [ $? -gt 0 ]; then
+    echo "Git not available on this host, exiting"
+    exit 1
+fi
 
 # Install vim
-sudo apt-get install -y vim  tmux rlwrap 
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-DIR=$PWD
-cd $HOME
-if [ -d ./dotfiles/ ]; then
-    mv dotfiles dotfiles.old
-fi
-if [ -f .vimrc ]; then
-    mv .vim .vim_old
-    mv .vimrc .vimrc_old
+sudo apt-get install -y vim-nox  tmux rlwrap 
+if [ ! -e $HOME/.vim/bundle/Vundle.vim ]; then
+    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+else
+    echo "Vim Vundle is already  installed, skipping"
 fi
 
-cp -r $DIR/dotfiles .
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.tmux.conf .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.bashrc_custom .
-ln -sb dotfiles/.vimrc .
+
+
+uname=$(uname)
+if [[ "$uname" = "Darwin" ]]; then
+    echo "Running MacOS X, installing to $HOME/Library/Fonts"
+fi
+
+
+
+# Finally done with all the downloading, lets put all the magic pieces together!
+dotfiles="bashrc bash_profile bash_aliases  vimrc gitconfig tmux.conf screenrc gitconfig"
+for dotfile in $dotfiles; do
+    ln -fs $HOME/dotfiles/$dotfile $HOME/.$dotfile
+    if [ $? -gt 0 ]; then
+        echo "Something went wrong when creating the symbolic links to\
+            the repo. This should not happen so we will exit now."
+        exit 1
+    fi
+done
 
 vim +BundleInstall +qall
-echo "source ~/.bash_profile" 
+echo "Done with environment setup!"
