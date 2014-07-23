@@ -1,6 +1,8 @@
 #!/bin/bash
 # Simple setup.sh for for headless setup. 
 
+#sudo apt-get install -y vim-nox  tmux git 
+#sudo apt-get install curl git mercurial make binutils bison gcc build-essential
 
 has_git=$(which git > /dev/null)
 if [ $? -gt 0 ]; then
@@ -8,8 +10,17 @@ if [ $? -gt 0 ]; then
     exit 1
 fi
 
+
+has_gvm=$(which gvm > /dev/null)
+if [ $? -gt 0 ]; then
+    bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+    echo "Git not available on this host, exiting"
+    source $HOME/.gvm/scripts/gvm
+    gvm install go1.3
+fi
+
+
 # Install vim
-sudo apt-get install -y vim-nox  tmux rlwrap 
 if [ ! -e $HOME/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 else
