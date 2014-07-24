@@ -14,10 +14,9 @@ fi
 has_gvm=$(which gvm > /dev/null)
 if [ $? -gt 0 ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-    echo "Git not available on this host, exiting"
     source $HOME/.gvm/scripts/gvm
     gvm install go1.3
-    go get -u -v code.google.com/p/go.tools/cmd/goimports
+    gvm use go1.3 --default
 fi
 
 
