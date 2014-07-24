@@ -29,9 +29,9 @@ fi
 
 
 
-COFF='\e[0m'       # Text Reset
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-PS1='┌─[\[\033[0;32m\]\u@\[\033[0;31m\]\h\[\033[0m\]]───\[\033[0;34m\][\w]\[\033[0m\]───\[\e[0;0m\][${cwd}\t]\[\033[0m\]───\[\033[0m\] ${fill}\n└─\[\033[0m\]$(__git_ps1)\[\033[0m\]\$ '
+source /etc/bash_completion.d/git-prompt
+PS1="┌─[\[\033[0;32m\]\u\[\033[0m\]@\[\033[0;31m\]\h\[\033[0m\]]───[\[\033[34m\]\w\[\033[0m\]]───\[\033[32m\]\$(__git_ps1)\[\033[0m\]──\n└─$"
+#PS1='┌─[\[\033[0;32m\]\u@\[\033[0;31m\]\h\[\033[0m\]]───\[\033[0;34m\][\w]\[\033[0m\]───\[\e[0;0m\][${cwd}\t]\[\033[0m\]───\[\033[0m\] ${fill}\n└─\[\033[0m\]$(__git_ps1)\[\033[0m\]\$ '
 case $TERM in
     xterm*|rxvt*)
         PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
@@ -81,13 +81,4 @@ fi
 unset LANG
 export LC_ALL=POSIX
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
-
-
-__git_ps1 () 
-{ 
-    local b="$(git symbolic-ref HEAD 2>/dev/null)";
-    if [ -n "$b" ]; then
-        printf " (%s)" "${b##refs/heads/}";
-    fi
-}
 
