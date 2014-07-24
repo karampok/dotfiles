@@ -1,7 +1,7 @@
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
-gvm use go1.3 > /dev/null 2>&1
-export PATH="${GOPATH//://bin:}/bin:$PATH"
+gvm use go1.3 
 
+export PATH="${GOPATH//://bin:}/bin:$PATH"
 export PYTHONPATH
 export EDITOR=vim
 export VISUAL=view

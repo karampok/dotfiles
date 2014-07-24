@@ -17,6 +17,7 @@ if [ $? -gt 0 ]; then
     echo "Git not available on this host, exiting"
     source $HOME/.gvm/scripts/gvm
     gvm install go1.3
+    go get -u -v code.google.com/p/go.tools/cmd/goimports
 fi
 
 
