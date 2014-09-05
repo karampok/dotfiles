@@ -1,7 +1,7 @@
 #!/bin/bash
 # Simple setup.sh for for headless setup. 
 
-#sudo apt-get install -y vim-nox  tmux git 
+#sudo apt-get install -y vim-nox  tmux git exuberant-ctags ctags 
 #sudo apt-get install curl git mercurial make binutils bison gcc build-essential
 
 has_git=$(which git > /dev/null)
@@ -17,6 +17,7 @@ if [ $? -gt 0 ]; then
     source $HOME/.gvm/scripts/gvm
     gvm install go1.3
     gvm use go1.3 --default
+    go get -u github.com/jstemmer/gotags
 fi
 
 
