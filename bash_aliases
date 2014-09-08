@@ -5,6 +5,9 @@ gvm use go1.3
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 ruby --version
 
+curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
+
+
 
 export PYTHONPATH
 export EDITOR=vim
