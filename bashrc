@@ -82,3 +82,7 @@ unset LANG
 export LC_ALL=POSIX
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
 
+
+## rvm
+PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
+[ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm

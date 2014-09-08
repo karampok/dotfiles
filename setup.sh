@@ -1,8 +1,15 @@
 #!/bin/bash
 # Simple setup.sh for for headless setup. 
 
-#sudo apt-get install -y vim-nox  tmux git exuberant-ctags ctags 
-#sudo apt-get install curl git mercurial make binutils bison gcc build-essential
+if (whoami != root)
+then 
+    echo "Please run as sudo user"
+    exit 1
+else 
+    sudo apt-get install -y vim-nox  tmux git exuberant-ctags ctags 
+    sudo apt-get install curl git mercurial make binutils bison gcc build-essential
+fi
+
 
 has_git=$(which git > /dev/null)
 if [ $? -gt 0 ]; then
@@ -19,6 +26,16 @@ if [ $? -gt 0 ]; then
     gvm use go1.3 --default
     go get -u github.com/jstemmer/gotags
 fi
+
+has_rvm=$(which rvm > /dev/null)
+if [ $? -gt 0 ]; then
+    bash -s stable < <(curl -s -S -L https://get.rvm.io)
+    source $HOME/.rvm/scripts/rvm
+    rvm install 2.1.1
+    rvm use 2.1.1 --default
+fi
+
+
 
 
 # Install vim
