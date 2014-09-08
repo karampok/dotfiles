@@ -1,14 +1,22 @@
 #!/bin/bash
 # Simple setup.sh for for headless setup. 
+debInst() {
+        dpkg-query -Wf'${db:Status-abbrev}' "$1" 2>/dev/null | grep -q '^i'
+}
 
-if (whoami != root)
-then 
-    echo "Please run as sudo user"
-    exit 1
-else 
-    sudo apt-get install -y vim-nox  tmux git exuberant-ctags ctags 
-    sudo apt-get install curl git mercurial make binutils bison gcc build-essential
-fi
+pkgok=1
+packages="vim-nox  tmux git exuberant-ctags ctags curl git mercurial make binutils bison gcc build-essential"
+for pkg in $packages; do
+    if ! debInst $pkg; then
+        echo "sudo install $pkg to continue"
+        pkgok=0
+    fi
+done
+
+[  $pgkok ] || exit 1 
+
+#sudo apt-get install -y vim-nox  tmux git exuberant-ctags ctags 
+#sudo apt-get install curl git mercurial make binutils bison gcc build-essential
 
 
 has_git=$(which git > /dev/null)
