@@ -1,8 +1,20 @@
 #!/bin/bash
 # Simple setup.sh for for headless setup. 
+debInst() {
+        dpkg-query -Wf'${db:Status-abbrev}' "$1" 2>/dev/null | grep -q '^i'
+}
 
-#sudo apt-get install -y vim-nox  tmux git 
-#sudo apt-get install curl  mercurial bison git mercurial make binutils bison gcc build-essential
+pkgok=1
+packages="vim-nox  tmux git exuberant-ctags ctags curl git mercurial make binutils bison gcc build-essential"
+for pkg in $packages; do
+    if ! debInst $pkg; then
+        echo "sudo install $pkg to continue"
+        pkgok=0
+    fi
+done
+
+[  $pgkok ] || exit 1 
+
 
 has_git=$(which git > /dev/null)
 if [ $? -gt 0 ]; then
@@ -17,7 +29,18 @@ if [ $? -gt 0 ]; then
     source $HOME/.gvm/scripts/gvm
     gvm install go1.3
     gvm use go1.3 --default
+    go get -u github.com/jstemmer/gotags
 fi
+
+has_rvm=$(which rvm > /dev/null)
+if [ $? -gt 0 ]; then
+    bash -s stable < <(curl -s -S -L https://get.rvm.io)
+    source $HOME/.rvm/scripts/rvm
+    rvm install 2.1.1
+    rvm use 2.1.1 --default
+fi
+
+
 
 
 # Install vim

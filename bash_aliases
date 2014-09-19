@@ -1,7 +1,14 @@
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
-gvm use go1.3 
-
 export PATH="${GOPATH//://bin:}/bin:$PATH"
+gvm use go1.3 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+ruby --version
+
+curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
+
+
+
 export PYTHONPATH
 export EDITOR=vim
 export VISUAL=view
