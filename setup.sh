@@ -2,7 +2,7 @@
 # Simple setup.sh for for headless setup. 
 
 #sudo apt-get install -y vim-nox  tmux git 
-#sudo apt-get install curl git mercurial make binutils bison gcc build-essential
+#sudo apt-get install curl  mercurial bison git mercurial make binutils bison gcc build-essential
 
 has_git=$(which git > /dev/null)
 if [ $? -gt 0 ]; then
