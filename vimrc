@@ -14,6 +14,7 @@ Plugin 'fatih/vim-go'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'cscope.vim'
 "Plugin 'delimitMate.vim'
 Plugin 'tpope/vim-fugitive'
 
@@ -49,6 +50,8 @@ colorscheme jellybeans
 "au VimEnter * NERDTreeToggle 
 nmap <F3> :NERDTreeToggle<CR>
 au BufRead,BufNewFile *.md set filetype=markdown
+set colorcolumn=80
+set cmdheight=2
 
 
 function! Tabstyle_tabs()
