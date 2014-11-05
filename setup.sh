@@ -5,7 +5,7 @@ debInst() {
 }
 
 pkgok=1
-packages="vim-nox  tmux git exuberant-ctags ctags curl git mercurial make binutils bison gcc build-essential"
+packages="vim-nox  tmux git exuberant-ctags  curl git mercurial make binutils bison gcc build-essential"
 for pkg in $packages; do
     if ! debInst $pkg; then
         echo "sudo install $pkg to continue"
@@ -13,7 +13,7 @@ for pkg in $packages; do
     fi
 done
 
-[  $pgkok ] || exit 1 
+#[  $pgkok ] || exit 1 
 
 
 has_git=$(which git > /dev/null)
@@ -40,12 +40,22 @@ if [ $? -gt 0 ]; then
     rvm use 2.1.1 --default
 fi
 
+has_nvm=$(which nvm > /dev/null)
+if [ $? -gt 0 ]; then
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.17.3/install.sh | bash
+    source $HOME/.nvm/nvm.sh
+    nvm install v0.10.33
+    nvm use v0.10.33
+fi
+
+
 
 
 
 # Install vim
 if [ ! -e $HOME/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +BundleInstall +qall
 else
     echo "Vim Vundle is already  installed, skipping"
 fi
@@ -70,5 +80,4 @@ for dotfile in $dotfiles; do
     fi
 done
 
-vim +BundleInstall +qall
 echo "Done with environment setup!"

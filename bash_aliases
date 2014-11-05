@@ -1,13 +1,16 @@
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
 export PATH="${GOPATH//://bin:}/bin:$PATH"
 gvm use go1.3 
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 ruby --version
 
+export NVM_DIR="/home/karampok/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+nvm --version
+
 curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
-
-
 
 export PYTHONPATH
 export EDITOR=vim
