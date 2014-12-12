@@ -80,7 +80,7 @@ fi
 
 unset LANG
 export LC_ALL=POSIX
-export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
+export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin:$HOME/dotfiles/scripts
 
 
 ## rvm

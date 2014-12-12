@@ -5,7 +5,7 @@ debInst() {
 }
 
 pkgok=1
-packages="vim-nox  tmux git exuberant-ctags ctags curl git mercurial make binutils bison gcc build-essential"
+packages="vim-nox  tmux git exuberant-ctags curl git mercurial make binutils bison gcc build-essential"
 for pkg in $packages; do
     if ! debInst $pkg; then
         echo "sudo install $pkg to continue"
