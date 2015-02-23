@@ -1,16 +1,18 @@
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
 export PATH="${GOPATH//://bin:}/bin:$PATH"
-gvm use go1.3 
+gvm use go1.4 
 
 ## rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-#PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
-ruby --version
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
+rvm use ruby-2.1.1
+#ruby --version
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-nvm --version
+nvm use v0.10.33
+#nvm --version
 
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
 

@@ -106,7 +106,7 @@ inoremap <leader>, <C-x><C-o>
 
 let g:mapleader=','
 :nmap <Leader>s :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
-nmap <leader>w :w!<cr> "fast saving
+nmap <leader>w :w!<cr> 
 nmap <leader>t :tabnew <cr> "new tab
 
 
