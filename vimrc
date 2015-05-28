@@ -104,10 +104,10 @@ let mapleader=','
 inoremap <leader>, <C-x><C-o>
 
 let g:mapleader=','
-:nmap <Leader>s :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
+nmap <Leader>s :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
 nmap <leader>w :w!<cr> 
 nmap <leader>t :tabnew <cr> "new tab
-
+set splitright
 
 if has("spell")
     " toggle spelling with F4 key
