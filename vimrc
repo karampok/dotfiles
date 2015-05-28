@@ -6,7 +6,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/vundle'
-"Plugin 'Lokaltog/vim-powerline'
 Plugin 'bling/vim-airline'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'jlanzarotta/bufexplorer'
@@ -24,7 +23,7 @@ if has('lua')
     Plugin 'Shougo/neosnippet'
     Plugin 'Shougo/neosnippet-snippets'
 end
-"
+
 "undle 'Lokaltog/vim-easymotion'
 " vim-scripts repos
 "Bundle 'L9'

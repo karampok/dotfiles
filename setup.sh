@@ -13,7 +13,7 @@ for pkg in $packages; do
     fi
 done
 
-#[  $pgkok ] || exit 1 
+[  $pgkok ] || exit 1 
 
 
 has_git=$(which git > /dev/null)
@@ -27,8 +27,8 @@ has_gvm=$(which gvm > /dev/null)
 if [ $? -gt 0 ]; then
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
     source $HOME/.gvm/scripts/gvm
-    gvm install go1.3
-    gvm use go1.3 --default
+    gvm install go1.4
+    gvm use go1.4 --default
     go get -u github.com/jstemmer/gotags
 fi
 

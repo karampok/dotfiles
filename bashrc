@@ -81,3 +81,5 @@ fi
 unset LANG
 export LC_ALL=POSIX
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin:$HOME/dotfiles/scripts
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting

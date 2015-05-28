@@ -1,13 +1,14 @@
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
-export PATH="${GOPATH//://bin:}/bin:$PATH"
 gvm use go1.4 
+gocd () { cd `go list -f '{{.Dir}}'  $1`;}
+export GOPATH=$HOME/gospace
+export PATH="${GOPATH//://bin:}/bin:$PATH"
 
 ## rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+rvm use ruby-2.1.1
 #export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
-rvm use ruby-2.1.1
-#ruby --version
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -15,7 +16,6 @@ nvm use v0.10.33
 #nvm --version
 
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
-
 curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
 
 export PYTHONPATH
