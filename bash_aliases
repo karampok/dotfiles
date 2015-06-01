@@ -62,7 +62,7 @@ alias treeacl='tree -A -C -L 2'
 alias ls='ls -F --color=auto'
 alias vless='/usr/share/vim/vimcurrent/macros/less.sh'
 alias rec="arecord -f cd  /tmp/trecord ; aplay /tmp/trecord"
-alias tmux='tmux -2 -u'
+alias tmux="TERM=xterm-256color /usr/bin/tmux"
 
 
 

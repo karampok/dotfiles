@@ -14,6 +14,9 @@ HISTFILESIZE=2000
 
 
 shopt -s checkwinsize
+#export TERM="xterm-256color"
+
+
 
 
 # http://www.debian-administration.org/articles/543.
@@ -65,6 +68,7 @@ alias la='ls -AF'
 alias l='ls -CF'
 
 
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -81,5 +85,7 @@ fi
 unset LANG
 export LC_ALL=POSIX
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin:$HOME/dotfiles/scripts
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+stty -ixon
+

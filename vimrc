@@ -2,20 +2,25 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 
+set shell=bash
+set splitright
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'fatih/vim-go'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'cscope.vim'
 "Plugin 'delimitMate.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'christoomey/vim-tmux-navigator'
+
 
 
 if has('lua')
@@ -36,6 +41,7 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 
+"let g:airline_theme='hybrid'
 
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
@@ -44,7 +50,12 @@ autocmd FileType qf wincmd J "fix the quickfix window
 set nu
 syntax enable
 set background=dark
-colorscheme jellybeans
+"set t_ut=
+"colorscheme jellybeans
+"let g:solarized_termcolors=256
+colorscheme solarized
+
+  
 
 "au VimEnter * NERDTreeToggle 
 nmap <F3> :NERDTreeToggle<CR>
@@ -87,6 +98,13 @@ endfunction
 autocmd BufRead *.java call TabJava() 
 
 
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>i <Plug>(go-info)
+
 
 set incsearch ignorecase hlsearch
 " Press space to clear search highlighting and any message already displayed.
@@ -94,12 +112,12 @@ nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 
 "if v:version > 700
-"   set cursorline
-"    hi CursorLine cterm=NONE,underline ctermbg=none ctermfg=NONE 
-"    hi CursorColumn cterm=NONE  ctermbg=black ctermfg=NONE 
-"endif
-"
-"
+"  set cursorline
+"   hi CursorLine cterm=NONE,underline ctermbg=none ctermfg=NONE 
+"   hi CursorColumn cterm=NONE  ctermbg=black ctermfg=NONE 
+"ndif
+
+
 let mapleader=','
 inoremap <leader>, <C-x><C-o>
 
@@ -107,7 +125,6 @@ let g:mapleader=','
 nmap <Leader>s :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
 nmap <leader>w :w!<cr> 
 nmap <leader>t :tabnew <cr> "new tab
-set splitright
 
 if has("spell")
     " toggle spelling with F4 key
