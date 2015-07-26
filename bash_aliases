@@ -1,18 +1,18 @@
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
-gvm use go1.4 
+gvm use go1.4.2 
+export GOPATH="/go"
+export PATH="$GOPATH/bin:$PATH"
 gocd () { cd `go list -f '{{.Dir}}'  $1`;}
-export GOPATH=$HOME/gospace
-export PATH="${GOPATH//://bin:}/bin:$PATH"
 
 ## rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 rvm use ruby-2.1.1
-#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-nvm use v0.10.33
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#nvm use v0.10.33
 #nvm --version
 
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
@@ -63,6 +63,7 @@ alias ls='ls -F --color=auto'
 alias vless='/usr/share/vim/vimcurrent/macros/less.sh'
 alias rec="arecord -f cd  /tmp/trecord ; aplay /tmp/trecord"
 alias tmux="TERM=xterm-256color /usr/bin/tmux"
+alias ttime="/usr/bin/time --format=' \n---- \nelapsed time is %e'ls"
 
 
 

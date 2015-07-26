@@ -4,19 +4,18 @@ filetype off                   " required!
 
 set shell=bash
 set splitright
+set splitbelow
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-Plugin 'bling/vim-airline'
+"Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'fatih/vim-go'
 Plugin 'majutsushi/tagbar'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
 "Plugin 'delimitMate.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -98,24 +97,20 @@ endfunction
 autocmd BufRead *.java call TabJava() 
 
 
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>i <Plug>(go-info)
 
+nnoremap <C-n> :set rnu! rnu? <cr>
 
 set incsearch ignorecase hlsearch
 " Press space to clear search highlighting and any message already displayed.
 nnoremap <silent> <Space> :silent noh<Bar>echo<CR>
 
 
-"if v:version > 700
-"  set cursorline
-"   hi CursorLine cterm=NONE,underline ctermbg=none ctermfg=NONE 
-"   hi CursorColumn cterm=NONE  ctermbg=black ctermfg=NONE 
-"ndif
+if v:version > 700
+  set cursorline
+   hi CursorLine cterm=NONE,underline ctermbg=none ctermfg=NONE 
+   hi CursorColumn cterm=NONE  ctermbg=black ctermfg=NONE 
+endif
 
 
 let mapleader=','
@@ -124,7 +119,11 @@ inoremap <leader>, <C-x><C-o>
 let g:mapleader=','
 nmap <Leader>s :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
 nmap <leader>w :w!<cr> 
-nmap <leader>t :tabnew <cr> "new tab
+"#nmap <leader>t :tabnew <cr> "new tab
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
 
 if has("spell")
     " toggle spelling with F4 key
@@ -197,3 +196,28 @@ if has('lua')
       set conceallevel=2 concealcursor=i
     endif
 end
+
+if has('statusline')
+      set laststatus=2
+      " Broken down into easily includeable segments
+      set statusline=%<%f\    " Filename
+      set statusline+=%{fugitive#statusline()} "  Git Hotness
+      "set statusline+=%w%h%m%r " Options
+      "set statusline+=\ [%{&ff}/%Y]            " filetype
+      "set statusline+=\ [%{getcwd()}]          " current dir
+      set statusline+=%#warningmsg#
+      set statusline+=%*
+      set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+      hi User1 guifg=#ffdad8  guibg=#880c0e
+
+      hi User2 guifg=#000000  guibg=#F4905C
+      hi User3 guifg=#292b00  guibg=#f4f597
+      hi User4 guifg=#112605  guibg=#aefe7B
+      hi User5 guifg=#051d00  guibg=#7dcc7d
+      hi User7 guifg=#ffffff  guibg=#880c0e gui=bold
+      hi User8 guifg=#ffffff  guibg=#5b7fbb
+      hi User9 guifg=#ffffff  guibg=#810085
+      hi User0 guifg=#ffffff  guibg=#094afe
+      au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
+      au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
+endif
