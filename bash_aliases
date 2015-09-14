@@ -16,7 +16,7 @@ export PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 #nvm --version
 
 export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
-curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
+#curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
 
 export PYTHONPATH
 export EDITOR=vim

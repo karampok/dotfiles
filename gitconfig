@@ -1,20 +1,25 @@
 [user]
-	email = karampok@gmail.com
-	name = karampok
+    email = konstantinos.karampogiasl@swisscom.com
+    #email = karampok@gmail.com 
+	name = konstantinos
 [alias]
     co = checkout
     br = branch
     m = merge
-    lg = log --graph --pretty=format:'%h -%d %s (%cr) <%an>' --abbrev-commit --date=relative
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     log-json = log --pretty=format:'\"%h\": {%n  \"commit\": \"%H\",%n  \"author\": \"%an <%ae>\",%n  \"date\": \"%ad\",%n  \"message\": \"%s\"%n}'
     hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
     get = fetch -v --recurse-submodules
     # Show short status with current branch name
     st="!f() { br=$(git status | head -1) && echo "${br}" && git status -s; }; f"
     xpush = !git push  && ./build-jenkins.sh 
+	d = difftool
 [push]
 	default = simple
 [color]
 	ui = auto
     diff = auto
-
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

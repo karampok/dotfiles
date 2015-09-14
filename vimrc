@@ -9,7 +9,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-"Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
+"Plugin 'powerline/powerline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
@@ -28,19 +29,10 @@ if has('lua')
     Plugin 'Shougo/neosnippet-snippets'
 end
 
-"undle 'Lokaltog/vim-easymotion'
-" vim-scripts repos
-"Bundle 'L9'
-"undle 'FuzzyFinder'
-" non github repos
-"undle 'git://git.wincent.com/command-t.git'
-"undle 'altercation/vim-colors-solarized'
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 
-"let g:airline_theme='hybrid'
 
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
@@ -50,14 +42,13 @@ set nu
 syntax enable
 set background=dark
 "set t_ut=
-"colorscheme jellybeans
+colorscheme jellybeans
 "let g:solarized_termcolors=256
-colorscheme solarized
+"colorscheme solarized
 
   
+let g:airline_theme='jellybeans'
 
-"au VimEnter * NERDTreeToggle 
-nmap <F3> :NERDTreeToggle<CR>
 au BufRead,BufNewFile *.md set filetype=markdown
 set colorcolumn=80
 set cmdheight=2
@@ -86,7 +77,6 @@ function! TabC()
 	set expandtab
 endfunction
 
-
 function! TabJava()
 	set softtabstop=2
 	set shiftwidth=2
@@ -94,6 +84,7 @@ function! TabJava()
 	set expandtab
 
 endfunction
+
 autocmd BufRead *.java call TabJava() 
 
 
@@ -117,8 +108,8 @@ let mapleader=','
 inoremap <leader>, <C-x><C-o>
 
 let g:mapleader=','
-nmap <Leader>s :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
-nmap <leader>w :w!<cr> 
+nmap <Leader>c :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
+nmap <leader>s :w!<cr> 
 "#nmap <leader>t :tabnew <cr> "new tab
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
@@ -196,28 +187,3 @@ if has('lua')
       set conceallevel=2 concealcursor=i
     endif
 end
-
-if has('statusline')
-      set laststatus=2
-      " Broken down into easily includeable segments
-      set statusline=%<%f\    " Filename
-      set statusline+=%{fugitive#statusline()} "  Git Hotness
-      "set statusline+=%w%h%m%r " Options
-      "set statusline+=\ [%{&ff}/%Y]            " filetype
-      "set statusline+=\ [%{getcwd()}]          " current dir
-      set statusline+=%#warningmsg#
-      set statusline+=%*
-      set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-      hi User1 guifg=#ffdad8  guibg=#880c0e
-
-      hi User2 guifg=#000000  guibg=#F4905C
-      hi User3 guifg=#292b00  guibg=#f4f597
-      hi User4 guifg=#112605  guibg=#aefe7B
-      hi User5 guifg=#051d00  guibg=#7dcc7d
-      hi User7 guifg=#ffffff  guibg=#880c0e gui=bold
-      hi User8 guifg=#ffffff  guibg=#5b7fbb
-      hi User9 guifg=#ffffff  guibg=#810085
-      hi User0 guifg=#ffffff  guibg=#094afe
-      au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
-      au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
-endif
