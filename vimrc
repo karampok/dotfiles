@@ -3,8 +3,8 @@ filetype off                   " required!
 
 
 set shell=bash
-set splitright
-set splitbelow
+"set splitright
+"set splitbelow
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -16,23 +16,23 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'fatih/vim-go'
+    let g:go_fmt_command = "goimports"
 Plugin 'majutsushi/tagbar'
 "Plugin 'delimitMate.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
 
 
-
-if has('lua')
+"if has('lua')
     Plugin 'Shougo/neocomplete'
     Plugin 'Shougo/neosnippet'
     Plugin 'Shougo/neosnippet-snippets'
-end
+"end
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-
+let g:neocomplete#enable_at_startup = 1
 
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
@@ -42,12 +42,12 @@ set nu
 syntax enable
 set background=dark
 "set t_ut=
-colorscheme jellybeans
+"colorscheme jellybeans
 "let g:solarized_termcolors=256
-"colorscheme solarized
+colorscheme solarized
 
   
-let g:airline_theme='jellybeans'
+"let g:airline_theme='jellybeans'
 
 au BufRead,BufNewFile *.md set filetype=markdown
 set colorcolumn=80
@@ -110,6 +110,8 @@ inoremap <leader>, <C-x><C-o>
 let g:mapleader=','
 nmap <Leader>c :source $MYVIMRC "source $MYVIMRC reloads the saved $MYVIMR
 nmap <leader>s :w!<cr> 
+nmap <leader>q :qall!<cr> 
+nmap <leader>z :tabe %<cr> 
 "#nmap <leader>t :tabnew <cr> "new tab
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
@@ -187,3 +189,36 @@ if has('lua')
       set conceallevel=2 concealcursor=i
     endif
 end
+
+let g:airline#extensions#default#section_truncate_width = {
+      \ 'b': 79,
+      \ 'x': 90,
+      \ 'y': 120,
+      \ 'z': 90,
+      \ }
+let g:airline#extensions#default#layout = [
+      \ [  'b', 'c' ],
+      \ [  'y', 'z', 'warning' ]
+      \ ]
+
+let g:airline_inactive_collapse=1
+let g:airline#extensions#tabline#fnamemod = ':.'
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'

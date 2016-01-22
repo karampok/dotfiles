@@ -10,12 +10,12 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 export PROMPT_COMMAND="history -a; history -n"
 HISTSIZE=1000
-HISTFILESIZE=2000
+HISTFILESIZE=10000
 
 
 shopt -s checkwinsize
 #export TERM="xterm-256color"
-
+#eval $(gpg-agent --daemon)
 
 
 
@@ -25,69 +25,16 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOS
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-        debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-
-
-source /etc/bash_completion.d/git-prompt
-#PS1="┌─[\[\033[0;32m\]\u\[\033[0m\]@\[\033[0;31m\]\h\[\033[0m\]]───[\[\033[34m\]\w\[\033[0m\]]───\[\033[32m\]\$(__git_ps1)\[\033[0m\]──\n-$"
-PS1="--[\[\033[0;32m\]\u\[\033[0m\]@\[\033[0;31m\]\h\[\033[0m\]]--[\[\033[34m\]\w\[\033[0m\]]--\[\033[32m\]\$(__git_ps1)\[\033[0m\]\n--$ "
-#PS1='┌─[\[\033[0;32m\]\u@\[\033[0;31m\]\h\[\033[0m\]]───\[\033[0;34m\][\w]\[\033[0m\]───\[\e[0;0m\][${cwd}\t]\[\033[0m\]───\[\033[0m\] ${fill}\n└─\[\033[0m\]$(__git_ps1)\[\033[0m\]\$ '
-case $TERM in
-    xterm*|rxvt*)
-        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-        ;;
-	screen)
-		;;
-	*)
-	    ;;
-esac
-
+[[ -s "/usr/local/etc/bash_completion.d/password-store" ]] && source "/usr/local/etc/bash_completion.d/password-store"
+[[ -s "/etc/bash_completion.d/git-prompt" ]] && source "/etc/bash_completion.d/git-prompt"
+[[ -s "/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh" ]] && source "/Applications/Xcode.app/Contents/Developer/usr/share/git-core/git-prompt.sh"
 
 EDITOR=vim
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto -F'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-elif [[ $(uname) =~ (.*BSD|Darwin) ]]; then
-    alias ls='ls -Gp'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -AF'
-alias l='ls -CF'
-
+PS1="--[\[\033[0;32m\]\u\[\033[0m\]@\[\033[0;31m\]\h\[\033[0m\]]--[\[\033[34m\]\w\[\033[0m\]]--\[\033[32m\]\$(__git_ps1)\[\033[0m\]\n--$ "
 
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-if [ -f ~/.bashrc_custom ]; then
-    . ~/.bashrc_custom
-fi
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-        . /etc/bash_completion
-fi
-
-
-
-unset LANG
-export LC_ALL=POSIX
-export PATH=$PATH:$HOME/bin:/sbin:/usr/sbin:$HOME/dotfiles/scripts
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-stty -ixon
-
-[[ -s "/home/dev/.gvm/scripts/gvm" ]] && source "/home/dev/.gvm/scripts/gvm"
+#eval "$(docker-machine env dev)"

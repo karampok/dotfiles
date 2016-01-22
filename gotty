@@ -1,0 +1,60 @@
+port = "5000"
+permit_write = false
+
+// [bool] Enable basic authentication
+enable_basic_auth = true
+credential = "dev:passdev"  #manually to be changed
+
+// [bool] Enable random URL generation
+// enable_random_url = false
+
+// [int] Default length of random strings appended to URL
+//       To enable random URL generation, set `true` to `enable_random_url`
+// random_url_length = 8
+
+// [bool] Enable TLS/SSL
+//enable_tls = true
+// tls_crt_file = "~/.gotty.crt"
+// tls_key_file = "~/.gotty.key"
+
+// [string] Custom index.html file
+// index_file = ""
+
+// [string] Title format of browser window
+//          Available variables are:
+//            Command    Command string
+//            Pid        PID of the process for the client
+//            Hostname   Server hostname
+//            RemoteAddr Client IP address
+title_format = "Hoi - {{ .Command }} ({{ .Hostname }})"
+
+// [bool] Enable client side reconnection when connection closed
+// enable_reconnect = false
+
+// [int] Interval time to try reconnection (seconds)
+//       To enable reconnection, set `true` to `enable_reconnect`
+// reconnec_ttime = false
+
+// [bool] Accept only one client and exit gotty once the client exits
+// once = false
+
+
+
+// [object] Client terminal (hterm) preferences
+//          Examples below are some of commonly used options.
+//          See hterm's documentation for the complete list of preferences.
+//          https://chromium.googlesource.com/apps/libapps/+/master/hterm/js/hterm_preference_manager.js
+//          (Note that fihens `-` in preference names must be replaced by underscores `_`)
+// preferences {
+//   background_color = "rgb(16, 16, 16)"
+//   background_image = ""
+//   cursor_blink = false
+//   cursor_color = "rgba(255, 0, 0, 0.5)"
+//   ctrl_c_copy = false
+//   ctrl_v_paste = false
+//   east_asian_ambiguous_as_two_column = false
+//   font_family = "'DejaVu Sans Mono', 'Everson Mono', 'FreeMono', 'Menlo', 'Terminal',  monospace"
+//   font_size = 15
+//   foreground_color = "rgb(240, 240, 240)"
+//   user_css = ""
+// }

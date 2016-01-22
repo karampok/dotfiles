@@ -1,7 +1,6 @@
 [user]
-    email = konstantinos.karampogiasl@swisscom.com
-    #email = karampok@gmail.com 
-	name = konstantinos
+    email = karampok@gmail.com
+	name = karampok
 [alias]
     co = checkout
     br = branch
@@ -13,7 +12,8 @@
     # Show short status with current branch name
     st="!f() { br=$(git status | head -1) && echo "${br}" && git status -s; }; f"
     xpush = !git push  && ./build-jenkins.sh 
-	d = difftool
+	vimdiff = difftool
+	branchdiff = !git difftool $(git merge-base develop HEAD)
 [push]
 	default = simple
 [color]
@@ -23,3 +23,10 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[merge]
+	tool = vimdiff
+[commit]
+	template = /Users/taakako1/.git_commit_msg.txt
+[core]
+	editor = /usr/local/bin/vim
+	excludesfile = /Users/taakako1/.gitignore_global
