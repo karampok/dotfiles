@@ -1,7 +1,7 @@
 ## gvm
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm" 
-gvm use go1.5.1 
-export GOPATH=~/gospace/
+gvm use go1.6.2 
+export GOPATH=~/gospace
 export PATH="$GOPATH/bin:$HOME/bin:$PATH"
 #gocd () { cd `go list -f '{{.Dir}}'  gitlab.swisscloud.io/appc-cf-services/$1`;}
 
@@ -12,6 +12,8 @@ gocd () {
   fi
 }
 
+
+ulimit -n 4096
 # Optional tab completion wrapper for $GOPATH/src
 _gopath () {
   local cur
@@ -38,7 +40,7 @@ complete -o nospace -F _gopath gocd
 #nvm use v0.10.33
 #nvm --version
 
-curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
+#curl -4 --silent --output ~/.ext-ip ipinfo.io/ip
 
 # Vi key-bindings for shell (default is emacs)
 #set -o vi
@@ -70,4 +72,5 @@ alias vless='/usr/share/vim/vimcurrent/macros/less.sh'
 alias rec="arecord -f cd  /tmp/trecord ; aplay /tmp/trecord"
 alias ttime="/usr/bin/time --format=' \n---- \nelapsed time is %e'ls"
 alias mutt="TERM=screen-256color mutt"
+alias compile-ssh-config='rm  ~/.ssh/config && cat ~/.ssh/configs/*.config > ~/.ssh/config'
 #alias tmux="TERM=xterm-256color /usr/bin/tmux"

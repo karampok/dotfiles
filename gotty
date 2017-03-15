@@ -1,8 +1,8 @@
 port = "5000"
-permit_write = false
+permit_write = true
 
 // [bool] Enable basic authentication
-enable_basic_auth = true
+enable_basic_auth = false
 credential = "dev:passdev"  #manually to be changed
 
 // [bool] Enable random URL generation

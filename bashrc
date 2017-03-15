@@ -38,3 +38,5 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 #eval "$(docker-machine env dev)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

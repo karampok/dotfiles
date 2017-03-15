@@ -1,32 +1,78 @@
 [user]
-    email = karampok@gmail.com
-	name = karampok
+    email = konstantinos.karampogias@swisscom.com
+    name = konstantinos
 [alias]
+    private = !sh -c 'git config user.email "karampok@gmail.com" && git config user.name "karampok"'
+    work = !sh -c 'git config user.email "konstantinos.karampogias@swisscom.com" && git config user.name \"Konstantinos Karampogias\"'
+    st="!f() { br=$(git status | head -1) && echo "${br}" && git status -s; }; f"
+    di = diff
     co = checkout
     br = branch
-    m = merge
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    sta = stash
+    llog = log --date=local
+    flog = log --pretty=fuller --decorate
+    #lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lol = log --graph --decorate --oneline
+    lola = log --graph --decorate --oneline --all
+    blog = log origin/master... --left-right
     log-json = log --pretty=format:'\"%h\": {%n  \"commit\": \"%H\",%n  \"author\": \"%an <%ae>\",%n  \"date\": \"%ad\",%n  \"message\": \"%s\"%n}'
+    ds = diff --staged
+    unstage = reset HEAD
     hist = log --all --graph --pretty='[%C(cyan)%h%Creset]%C(bold cyan)%d%Creset %s'
     get = fetch -v --recurse-submodules
-    # Show short status with current branch name
-    st="!f() { br=$(git status | head -1) && echo "${br}" && git status -s; }; f"
-    xpush = !git push  && ./build-jenkins.sh 
-	vimdiff = difftool
-	branchdiff = !git difftool $(git merge-base develop HEAD)
+    vimdiff = difftool
+    rum = rebase master@{u}
+    ci = duet-commit --verbose
+    rebase = rebase -i --exec 'git duet-commit --amend --reset-author'
+    dci = duet-commit --verbose
+    dca = duet-commit --amend --reset-author --verbose
+    drv = duet-revert
+    dmg = duet-merge
+    drb = rebase -i --exec \"git duet-commit --amend --reset-author\"
+    duet-rebase = rebase -i --exec \"git duet-commit --amend --reset-author\"
+    push-release = push --recurse-submodules=check
 [push]
-	default = simple
+    default = simple
+[url "git@github.com:"]
+    pushInsteadOf = https://github.com/
 [color]
-	ui = auto
+    branch = auto
     diff = auto
-[diff]
-	tool = vimdiff
-[difftool]
-	prompt = false
+    interactive = auto
+    status = auto
+    ui = auto
 [merge]
-	tool = vimdiff
+    tool = vimdiff
+[diff]
+    tool = vimdiff
+    submodule = log
+[difftool "vimdiff"]
+    cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
+[difftool "opendiff"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[difftool]
+    prompt = yes
+
 [commit]
-	template = /Users/taakako1/.git_commit_msg.txt
+    template = /Users/taakako1/.git_commit_msg.txt
 [core]
-	editor = /usr/local/bin/vim
-	excludesfile = /Users/taakako1/.gitignore_global
+    editor = "NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
+    excludesfile = /Users/taakako1/.gitignore_global
+    pager = less -FXRS -x2
+[status]
+    submoduleSummary = true
+[credential]
+    helper = osxkeychain
+[duet "env"]
+[duet "env"]
+	git-author-initials = kk
+	git-author-name = Konstantinos Karampogias
+	git-author-email = konstantinos.karampogias@swisscom.com
+	mtime = 1489574958
+	git-committer-initials = gs
+	git-committer-name = Georgi Sabev
+	git-committer-email = georgethebeatle@gmail.com
+[http "https://gopkg.in"]
+	followRedirects = true

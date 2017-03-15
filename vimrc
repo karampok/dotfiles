@@ -2,7 +2,8 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 
-set shell=bash
+
+"set shell=bash
 "set splitright
 "set splitbelow
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -14,14 +15,19 @@ Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'stephpy/vim-yaml'
 Plugin 'jlanzarotta/bufexplorer'
+Plugin 'mbbill/undotree'
 Plugin 'fatih/vim-go'
     let g:go_fmt_command = "goimports"
+Plugin 'airblade/vim-gitgutter'
 Plugin 'majutsushi/tagbar'
 "Plugin 'delimitMate.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'christoomey/vim-tmux-navigator'
-
+Plugin 'nathanaelkane/vim-indent-guides'
+"Plugin 'YankRing.vim'
+Plugin 'luan/vim-concourse'
 
 "if has('lua')
     Plugin 'Shougo/neocomplete'
@@ -29,11 +35,18 @@ Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'Shougo/neosnippet-snippets'
 "end
 
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=black   ctermbg=10
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=3
+
+
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 let g:neocomplete#enable_at_startup = 1
 
+set directory=$HOME/.vim/swapfiles//
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show Unicode glyphs
 set t_Co=256 " Explicitly tell Vim that the terminal supports 256 colors
@@ -45,6 +58,9 @@ set background=dark
 "colorscheme jellybeans
 "let g:solarized_termcolors=256
 colorscheme solarized
+nnoremap <F5> :UndotreeToggle<cr>
+
+
 
   
 "let g:airline_theme='jellybeans'

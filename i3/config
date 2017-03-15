@@ -1,12 +1,15 @@
-# Variables             ----------------------------------------------------- {{{
 set $mod Mod4
-set $BROWSER    google-chrome-stable 
+
+# Variables
+set $BROWSER    google-chrome-stable
 set $TERM       gnome-terminal
 set $TERM1      urxvt
 set $FM         nautilus
 set $PRINT      scrot ~/Pictures/Screenshots/%b%d::%H%M%S.png && aplay ~/.sounds/ss.wav
 set $SPRINT     scrot -s ~/Pictures/Screenshots/%b%d::%H%M%S.png && aplay ~/.sounds/ss.wav
 
+# Font
+font pango:Lucida Grande 9
 
 # }}}
 # Startup apps          ----------------------------------------------------- {{{
@@ -31,51 +34,35 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id compton
 #exec --no-startup-id redshift -c ~/.config/redshift
 
-#}}}i
-# Font                  ----------------------------------------------------- {{{
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Lucida Grande 9
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-
 floating_modifier $mod
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+z focus mode_toggle
+
 
 #}}}
 # Personal Shortcuts    ----------------------------------------------------- {{{
-
 bindsym $mod+Return exec --no-startup-id $TERM # start a terminal
 bindsym $mod+c exec --no-startup-id $BROWSER # browser
 bindsym $mod+d exec --no-startup-id $FM # file Manager
-bindsym --release Print exec --no-startup-id $PRINT # printscreen
-bindsym --release $mod+Print exec --no-startup-id $SPRINT #
+bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable --app=https://web.whatsapp.com
+
 
 # power manager toggle
 #bindsym $mod+t exec --no-startup-id ~/.bin/scrs-toggle && pkill -RTMIN+1 i3blocks
 #bindsym $mod+shift+a exec --no-startup-id ~/.bin/hdmiaudio
 
-# volume
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%-- unmute && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute && pkill -RTMIN+1 i3blocks
 bindsym XF86AudioMute        exec --no-startup-id amixer -q set Master toggle && pkill -RTMIN+1 i3blocks
-
-# mopidy (TODO)
-#bindsym $mod+p exec --no-startup-id mpc toggle && pkill -RTMIN+1 i3blocks
-#bindsym XF86AudioNext exec --no-startup-id mpc next
-#bindsym XF86AudioPrev exec --no-startup-id mpc prev
-#bindsym XF86AudioPlay exec --no-startup-id mpc toggle && pkill -RTMIN+1 i3blocks
+bindsym --release Print exec --no-startup-id $PRINT # printscreen
+bindsym --release $mod+Print exec --no-startup-id $SPRINT #
 
 # meta+x lock screen
-bindsym $mod+x exec --no-startup-id i3lock -c 000000
+bindsym $mod+l exec --no-startup-id i3lock -c 000000
 
 # kill current notification
 bindsym ctrl+space exec --no-startup-id killall notify-osd i3-nagbar
@@ -83,21 +70,16 @@ bindsym ctrl+space exec --no-startup-id killall notify-osd i3-nagbar
 # move workspace to another output
 bindsym $mod+Shift+x move workspace to output right
 
-# whatsapp
-bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable --app=https://web.whatsapp.com
 
-#}}}
-# Multi-monitor         ----------------------------------------------------- {{{
-
-# popular
-bindsym $mod+m exec --no-startup-id xrandr --output VGA1 --off 
+# Multi-monitor
+bindsym $mod+m exec --no-startup-id xrandr --output VGA1 --off
 bindsym $mod+shift+m exec --no-startup-id xrandr --output VGA1 --auto --left-of LVDS1 && feh --bg-fill ~/.wallpaper.png
 #bindsym $mod+m exec --no-startup-id xrandr --output VGA1 --off && xrandr --output HDMI1 --off && feh --bg-fill ~/.wallpaper.png
 #bindsym $mod+Shift+n exec --no-startup-id xrandr --output VGA1 --auto --left-of LVDS1 && feh --bg-fill ~/.wallpaper.png
 #bindsym $mod+F2      exec --no-startup-id xrandr --output HDMI1 --auto --left-of LVDS1 && feh --bg-fill ~/.wallpaper.png
 #bindsym $mod+F3      exec --no-startup-id xrandr --output HDMI1 --auto --right-of LVDS1 && feh --bg-fill ~/.wallpaper.png
 #
-set $multi_monitor (1) DEFAULT  (2) VGA-L  (3) VGA-R  (4) HDMI-DVI-L  (5) HDMI-DVI-R  (6) HDMI  (7) PRES-VGA  (8) PRES-HDMI
+set $multi_monitor (1) DEFAULT  (2) DP-R  (3) DP-U  (4) MIRROR
 mode "$multi_monitor" {
     bindsym 1 bindsym $mod+m exec --no-startup-id xrandr --output VGA1 --off && xrandr --output HDMI1 --off && feh --bg-fill ~/.wallpaper.png, mode "default"
     bindsym 2 exec --no-startup-id xrandr --output VGA1 --auto --left-of LVDS1 && feh --bg-fill ~/.wallpaper.png, mode "default"
@@ -134,31 +116,14 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+v split h
-
-# split in vertical orientation
-bindsym $mod+b split v
-
-# enter fullscreen mode for the focused container
+bindsym $mod+minus split h
+bindsym $mod+bar split v
 bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
@@ -166,11 +131,6 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+z focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
