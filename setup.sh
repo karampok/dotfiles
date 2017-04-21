@@ -4,6 +4,7 @@ debInst() {
         dpkg-query -Wf'${db:Status-abbrev}' "$1" 2>/dev/null | grep -q '^i'
 }
 
+
 pkgok=1
 packages="vim-nox tmux git exuberant-ctags curl git mercurial make binutils bison gcc build-essential"
 for pkg in $packages; do
