@@ -1,0 +1,85 @@
+set-option -g prefix C-f
+bind-key C-f last-window
+bind-key f send-prefix
+set -g base-index 1
+set -s escape-time 0
+set-option -g history-limit 200000
+
+# set tmux to 256 colors
+set -g default-terminal "screen-256color"
+set-option -ga terminal-overrides ",*256col*:Tc"
+
+
+set-option -g status-keys vi
+setw -g mode-keys vi
+bind-key -T copy-mode-vi 'v' send-keys -X begin-selection
+bind-key -T copy-mode-vi 'y' send-keys -X copy-selection-and-cancel
+bind-key -T copy-mode-vi Enter send-keys -X copy-selection-and-cancel
+bind-key -T copy-mode-vi 'd' send-keys -X copy-end-of-line
+bind-key -T copy-mode-vi 'Y' send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+
+bind c new-window -c "#{pane_current_path}"
+bind-key v split-window -h -c '#{pane_current_path}'
+bind-key s split-window -v -c '#{pane_current_path}'
+
+# Source file
+unbind r
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+
+#hjkl pane traversal
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+bind x kill-pane
+
+
+set-option -g visual-activity off
+set-option -g visual-bell off
+set-option -g visual-silence off
+set-window-option -g monitor-activity off
+set-option -g bell-action none
+
+set -g status-left-length 100
+set -g status-left "#[fg=white][@#H]    "
+set -g window-status-separator ' | '
+# set-option -g pane-active-border-fg green #base01
+# set-option -g pane-border-fg white #base02
+
+set -g status-right-length 100
+set -g status-right '#[default]|#[fg=green]#[fg=blue](ZRH #(TZ=Europe/Zurich date +%%H:%%M))#[default]┃ #[fg=white]%a %d/%m/%y #[default]'
+#set -g status-right '#[default]|#[fg=colour69](SF #(TZ=US/Pacific date +%%H:%%M)) #[fg=yellow] #[fg=green](DUB #(TZ=Europe/Dublin date +%%H:%%M)) #[fg=blue](ZRH #(TZ=Europe/Zurich date +%%H:%%M))#[default]┃ #[fg=white]%a %d-%m-%y #[default]'
+
+
+#### COLOUR (Solarized dark)
+# default statusbar colors
+set-option -g status-bg black #base02
+set-option -g status-fg yellow #yellow
+set-option -g status-attr default
+# default window title colors
+set-window-option -g window-status-fg brightblue #base0
+set-window-option -g window-status-bg default
+set-window-option -g window-status-attr dim
+# active window title colors
+set-window-option -g window-status-current-fg brightred #orange
+set-window-option -g window-status-current-bg default
+set-window-option -g window-status-current-attr bright
+
+# pane border
+set-option -g pane-border-fg brightwhite #base02
+set-option -g pane-active-border-fg brightgreen #base01
+
+# message text
+#set-option -g message-bg black #base02
+#set-option -g message-fg brightred #orange
+
+# pane number display
+#set-option -g display-panes-active-colour blue #blue
+#set-option -g display-panes-colour brightred #orange
+
+# clock
+#set-window-option -g clock-mode-colour green #green
+
+# bell
+#set-window-option -g window-status-bell-style fg=black,bg=red #base02, red
