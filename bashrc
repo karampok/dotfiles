@@ -1,6 +1,6 @@
 ### Install
 #  To source .bashrc, create .bash_profile with content:
-#    if [ -f ~/.bashrc ]; then . ~/.bashrc; fi 
+#    if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
 ###############
 
 # Senstive functions which are not pushed to Github
@@ -9,18 +9,18 @@
 
 # On Mac OS X: brew install bash-completion@2
 if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
-  source $(brew --prefix)/etc/profile.d/bash_completion.sh 
+  source $(brew --prefix)/etc/profile.d/bash_completion.sh
   # /usr/local/etc/bash_completion.d/kubectl
   complete -o default -o nospace -F __start_kubectl k
 fi
 
-# Get it from the original Git repo: 
+# Get it from the original Git repo:
 # https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 if [ -f ~/.git-prompt.sh ]; then
   source ~/.git-prompt.sh
 fi
 
-# # Get it from the original Git repo: 
+# # Get it from the original Git repo:
 # https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 if [ -f ~/.git-completion.bash ]; then
   source ~/.git-completion.bash
@@ -66,7 +66,7 @@ export PROMPT_COMMAND='__git_ps1 "\[$(tput setaf 6)\]\W\[$(tput sgr0)\]\[$(tput 
 
 
 # -- History
-export HISTCONTROL=ignoreboth:erasedups  
+export HISTCONTROL=ignoreboth:erasedups
 export HISTFILE=~/.bash_history          # be explicit about file path
 export HISTSIZE=100000                   # in memory history size
 export HISTFILESIZE=100000               # on disk history size
