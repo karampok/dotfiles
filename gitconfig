@@ -1,6 +1,7 @@
 [user]
 	email = karampok@gmail.com
 	name = Konstantinos
+	signingkey = E0DC1AAFF6FB7BE0FC533E3B5BD78E317944F776
 [alias]
         private = !sh -c 'git config user.email "karampok@gmail.com" && git config user.name "karampok"'
         st = status -sb
@@ -51,3 +52,5 @@
         default = current
 [difftool "vimdiff"]
         cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
+[commit]
+	gpgsign = true
