@@ -6,12 +6,16 @@
 # Senstive functions which are not pushed to Github
 # It contains GOPATH, some functions, aliases etc...
 [ -r ~/.bash_private ] && source ~/.bash_private
+#[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 
-# On Mac OS X: brew install bash-completion@2
-if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
-  source $(brew --prefix)/etc/profile.d/bash_completion.sh
-  # /usr/local/etc/bash_completion.d/kubectl
-  complete -o default -o nospace -F __start_kubectl k
+
+if [ "$(uname)" == "Darwin" ]; then
+	# On Mac OS X: brew install bash-completion@2
+	if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
+	  source $(brew --prefix)/etc/profile.d/bash_completion.sh
+	  # /usr/local/etc/bash_completion.d/kubectl
+	  complete -o default -o nospace -F __start_kubectl k
+	fi
 fi
 
 # Get it from the original Git repo:
@@ -52,6 +56,8 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+
+eval "$(gopass completion bash)"
 
 ###############
 # Bash settings
@@ -109,6 +115,7 @@ PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"'echo -e $PW
 
 gpgconf --launch gpg-agent
 export GPG_TTY=$(tty)
+echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
