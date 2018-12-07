@@ -35,6 +35,8 @@ fi
 alias vi='nvim'
 alias vim='nvim'
 alias vi='vim'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 alias compile-ssh-config='rm  ~/.ssh/config && cat ~/.ssh/configs/*.config > ~/.ssh/config'
 alias tmux="tmux -u"
 alias k="kubectl"
@@ -119,3 +121,13 @@ echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}

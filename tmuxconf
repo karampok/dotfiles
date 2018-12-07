@@ -44,8 +44,6 @@ set-option -g bell-action none
 set -g status-left-length 100
 set -g status-left "#[fg=white][@#H]    "
 set -g window-status-separator ' | '
-# set-option -g pane-active-border-fg green #base01
-# set-option -g pane-border-fg white #base02
 
 set -g status-right-length 100
 set -g status-right '#[default]|#[fg=blue](ZRH #(TZ=Europe/Zurich date +%%H:%%M))#[fg=white](UTC #(date --utc +%%H:%%M))#[fg=green](SF #(TZ=US/Pacific date +%%H:%%M))#[default]┃ #[fg=white]%a %d/%m/%y #[default]'
@@ -59,15 +57,15 @@ set-option -g status-bg colour237 #bg1
 set-option -g status-fg colour223 #fg1
 
 # default window title colors
-set-window-option -g window-status-bg colour214 #yellow
-set-window-option -g window-status-fg colour237 #bg1
+set-window-option -g window-status-bg default
+set-window-option -g window-status-fg  white #bg1
 
 set-window-option -g window-status-activity-bg colour237 #bg1
 set-window-option -g window-status-activity-fg colour248 #fg3
 
 # active window title colors
-set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-fg colour237 #bg1
+set-window-option -g window-status-current-bg white
+set-window-option -g window-status-current-fg black #bg1
 
 # pane border
 set-option -g pane-active-border-fg colour250 #fg2
@@ -90,7 +88,6 @@ set-window-option -g clock-mode-colour colour109 #blue
 
 # bell
 set-window-option -g window-status-bell-style fg=colour235,bg=colour167 #bg, red
-
 
 ## Theme settings mixed with colors (unfortunately, but there is no cleaner way)
 set-option -g status-attr "none"
