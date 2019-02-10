@@ -14,7 +14,6 @@ if [ "$(uname)" == "Darwin" ]; then
 	if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
 	  source $(brew --prefix)/etc/profile.d/bash_completion.sh
 	  # /usr/local/etc/bash_completion.d/kubectl
-	  complete -o default -o nospace -F __start_kubectl k
 	fi
 fi
 
@@ -40,7 +39,8 @@ alias grep='grep --color=auto'
 alias compile-ssh-config='rm  ~/.ssh/config && cat ~/.ssh/configs/*.config > ~/.ssh/config'
 alias tmux="tmux -u"
 alias k="kubectl"
- # Alias
+complete -o default -o nospace -F __start_kubectl k
+
 #################
 # Git
 # Exports (custom)
@@ -121,6 +121,7 @@ echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+#[ -f ~/.dotfiles/mcfly.bash ] && source ~/.dotfiles/mcfly.bash
 
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
