@@ -44,7 +44,7 @@ complete -o default -o nospace -F __start_kubectl k
 #################
 # Git
 # Exports (custom)
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:${HOME}/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/bin"
 export EDITOR="nvim"
 export LSCOLORS=cxBxhxDxfxhxhxhxhxcxcx
 export CLICOLOR=1
