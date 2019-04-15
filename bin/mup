@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+#minikube config set vm-driver kvm2
+
+minikube start --vm-driver kvm2 --memory=5120  -v=2  \
+	--network-plugin=cni \
+	--enable-default-cni \
+	--container-runtime=containerd \
+    --kubernetes-version=v1.14.0 \
+	--cri-socket=/run/containerd/containerd.sock \
+	--extra-config=kubelet.container-runtime=remote \
+	--extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
+	--extra-config=kubelet.image-service-endpoint=unix:///run/containerd/containerd.sock
+ #   --extra-config=apiserver.enable-admission-plugins="PodSecurityPolicy"
+  #  --extra-config=apiserver.GenericServerRunOptions.AdmissionControl=Initializers,NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,PodSecurityPolicy

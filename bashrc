@@ -39,12 +39,14 @@ alias grep='grep --color=auto'
 alias compile-ssh-config='rm  ~/.ssh/config && cat ~/.ssh/configs/*.config > ~/.ssh/config'
 alias tmux="tmux -u"
 alias k="kubectl"
-complete -o default -o nospace -F __start_kubectl k
+eval "$(kubectl completion bash)"
+complete -o default  -F __start_kubectl k
 
 #################
 # Git
 # Exports (custom)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/bin"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export EDITOR="nvim"
 export LSCOLORS=cxBxhxDxfxhxhxhxhxcxcx
 export CLICOLOR=1

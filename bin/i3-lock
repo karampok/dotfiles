@@ -1,0 +1,14 @@
+#! /bin/bash
+
+xidlehook \
+  --not-when-fullscreen \
+  --timer normal 120 \
+    'notify-send -u normal -t 5000 "LOCKING screen in 10 seconds"' \
+    '' \
+  `# Undim & lock after 10 more seconds` \
+  --timer primary 15 \
+    'xbacklight -set 1; i3lock -o -f' \
+    '' \
+  --timer normal 600 \
+  '[[ $(cat /sys/class/power_supply/BAT0/status) == "Charging" ]] || systemctl suspend' \
+    ''
