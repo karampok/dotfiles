@@ -38,6 +38,8 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias compile-ssh-config='rm  ~/.ssh/config && cat ~/.ssh/configs/*.config > ~/.ssh/config'
 alias tmux="tmux -u"
+alias systemctl='systemctl --no-pager'
+alias sudo='sudo '
 alias k="kubectl"
 eval "$(kubectl completion bash)"
 complete -o default  -F __start_kubectl k

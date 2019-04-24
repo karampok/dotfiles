@@ -50,9 +50,9 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shitf+Tab focus mode_toggle
 
 set $ws1 "1-main"
-set $ws2 "2-browser"
-set $ws3 "3-chat"
-set $ws4 "4-music"
+#set $ws2 "2-browser"
+#set $ws3 "3-chat"
+#set $ws4 "4-music"
 
 bindsym $mod+a workspace back_and_forth
 bindsym $mod+Shift+a move container to workspace back_and_forth
@@ -69,9 +69,9 @@ bindsym $mod+Shift+3 move container to workspace $ws2
 bindsym $mod+Shift+4 move container to workspace $ws4
 
 #assign [class="Alacritty"] $ws1
-assign [class="Chromium"] $ws2
-assign [class="Slack"] $ws3
-assign [class="Spotify"] $ws3
+#assign [class="Chromium"] $ws2
+#assign [class="Slack"] $ws3
+#assign [class="Spotify"] $ws3
 
 set $internal "eDP1"
 #set $external "HDMI1"
@@ -130,6 +130,11 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #i
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 bindsym XF86AudioMicMute exec --no-startup-id amixer set Capture toggle # mute Mic
+bindsym XF86Display exec --no-startup-id ls ~/.screenlayout/ | rofi -dmenu |xargs -I{}  /bin/sh ~/.screenlayout/{}
+
+bindsym --release Print exec --no-startup-id scrot -z
+bindsym --release Mod1+Print exec --no-startup-id scrot -zu
+bindsym --release Shift+Print exec --no-startup-id scrot -zs
 
 exec setxkbmap -model pc105 -layout us,gr -option grp:rctrl_rshift_toggle
 exec udiskie --no-automount --no-notify --tray --use-udisks2 &
