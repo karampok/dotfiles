@@ -3,54 +3,63 @@
 	name = Konstantinos Karampogias
 	signingkey = E0DC1AAFF6FB7BE0FC533E3B5BD78E317944F776
 [alias]
-        private = !sh -c 'git config user.email "karampok@gmail.com" && git config user.name "karampok"'
-        st = status -sb
-        ci = commit
-        all = commit -am
-        br = branch
-        co = checkout
-        di = diff
-        dic = diff --cached
-        lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-        lol = log --graph --decorate --oneline
-        lol = log --graph --decorate --pretty=oneline --abbrev-commit
-        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-        ls = ls-files
-        # Show files ignored by git:
-        ign = ls-files -o -i --exclude-standard
-        unstage = reset HEAD --
+    private = !sh -c 'git config user.email "karampok@gmail.com" && git config user.name "karampok"'
+    st = status -sb
+    ci = commit
+    all = commit -am
+    br = branch
+    co = checkout
+    di = diff
+    dic = diff --cached
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lol = log --graph --decorate --oneline
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-files
+    # Show files ignored by git:
+    ign = ls-files -o -i --exclude-standard
+    unstage = reset HEAD --
+	files = !git diff --name-only $(git merge-base HEAD \"${review_base:-master}\")
+	stat = !git diff --stat $(git merge-base HEAD \"${review_base:-master}\")
+	# split-diff style review using vim-fugitive Gdiff
+	review = !$EDITOR -p $(git files) +\"tabdo Gdiff ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+	reviewone = !$EDITOR -p +\"tabdo Gdiff ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+	reviewf = !$EDITOR -p $(git files | fzf -m --reverse --height 40%) +\"tabdo Gdiff ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+	# Show a markdown-formatted summary of commits from {review_base:-master} until HEAD
+	pr-summary = !git log --reverse --format=\"- **%s** (%h)%n%n%w(74,2,2)%b\" \"${review_base:-master}\"..HEAD
+	root = rev-parse --show-toplevel
 [color]
-        branch = auto
-        diff = auto
-        interactive = auto
-        status = auto
-        ui = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+    ui = auto
 [color "branch"]
-        current = yellow reverse
-        local = yellow
-        remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 [color "status"]
-        added = yellow
-        changed = green
-        untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
 [core]
-        whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-        excludesfile = ~/.gitignore_global
-        editor = nvim
-        quotepath = false
-        pager = less -FXRS -x2
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    excludesfile = ~/.gitignore_global
+    editor = nvim
+    quotepath = false
+    pager = less -FXRS -x2
 [credential]
 	helper = !gopass git-credential $@
 [github]
-        user = karampok
+    user = karampok
 [mergetool]
-        keepBackup = true
+    keepBackup = true
 [filter "media"]
-        clean = git-media-clean %f
-        smudge = git-media-smudge %f
+    clean = git-media-clean %f
+    smudge = git-media-smudge %f
 [push]
-        default = current
+    default = current
 [difftool "vimdiff"]
-        cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
+    cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
 [commit]
-	gpgsign = true
+    gpgsign = true

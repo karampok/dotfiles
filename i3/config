@@ -65,7 +65,7 @@ bindsym $mod+4 workspace $ws4
 
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 
 #assign [class="Alacritty"] $ws1
@@ -145,6 +145,9 @@ for_window [instance="pavucontrol"] floating enable
 #for_window    [class="Pinentry"]             floating enable
 # for_window [title="^pinentry$"] floating enable
 #for_window [title="^pinentry$"] boarder pixel 1
+for_window [class="Alacritty"] title_format "<b>Alacritty</b>"
+for_window [class="Alacritty"] border pixel 3
+
 
 
 exec ~/bin/i3-lock

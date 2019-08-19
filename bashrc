@@ -113,11 +113,9 @@ shopt -s nocaseglob # Case-insensitive filename matching in filename expansion.
 # https://github.com/gsamokovarov/jump
 eval "$(jump shell --bind=z)"
 
-# brew install direnv
-# https://github.com/direnv/direnv
-eval "$(direnv hook bash)"
-PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"'echo -e $PWD "$(history 1| cut -c 8-)" >> $HOME/.bash_eternal'
-
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $PWD \
+               "$(history 1| cut -c 8-)" >> ~/.bash_eternal'
 
 gpgconf --launch gpg-agent
 export GPG_TTY=$(tty)
@@ -136,3 +134,7 @@ man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
+
+
+usermodmap=$HOME/.Xmodmap
+[[ $DISPLAY ]] && [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"

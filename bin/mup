@@ -2,12 +2,13 @@
 
 
 #minikube config set vm-driver kvm2
+#sudo systemctl start libvirtd.service
 
 minikube start --vm-driver kvm2 --memory=5120  -v=2  \
 	--network-plugin=cni \
 	--enable-default-cni \
 	--container-runtime=containerd \
-    --kubernetes-version=v1.14.0 \
+    --kubernetes-version=${1:-v1.14.2} \
 	--cri-socket=/run/containerd/containerd.sock \
 	--extra-config=kubelet.container-runtime=remote \
 	--extra-config=kubelet.container-runtime-endpoint=unix:///run/containerd/containerd.sock \
