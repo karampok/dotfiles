@@ -14,8 +14,9 @@ focus_follows_mouse no
 bindsym $mod+Return exec WINIT_HIDPI_FACTOR=1 alacritty
 bindsym $mod+m exec i3lock --fuzzy
 bindsym $mod+i exec gopass ls --flat | rofi -dmenu | xargs --no-run-if-empty gopass show -c
-bindsym $mod+Tab exec rofi -show
-bindsym $mod+o exec "rofi -combi-modi drun,window,run -show combi -modi combi"
+#bindsym $mod+Tab exec "rofi -show"
+bindsym $mod+Tab exec "rofi -combi-modi window -show combi -modi combi"
+bindsym $mod+o exec "rofi -combi-modi window,drun -show combi -modi combi"
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r restart # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 
@@ -28,6 +29,9 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
 # split in horizontal orientation
 # bindsym $mod+h split h
