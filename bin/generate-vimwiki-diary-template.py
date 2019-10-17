@@ -4,20 +4,19 @@ import datetime
 
 template = """# {date}
 
-## Daily checklist
+## Daily Journal
 
-* [ ] Take your vitamins
-* [ ] Drink water
+* arrive at 08:30
 
-## Todo(ne)
+* lunch at ...
 
-* [ ] Make the todos for tomorrow
+* leave at 17:45
 
-## For another day (tomorrow)
 
-* [ ] Todo 1
+[TODO](TODO)
 
-## Notes"""
+
+"""
 
 date = (datetime.date.today() if len(sys.argv) < 2
         # Expecting filename in YYYY-MM-DD.foo format
