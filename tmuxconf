@@ -3,6 +3,8 @@ bind-key C-space last-window
 bind-key space next-layout
 set -g base-index 1
 set -s escape-time 0
+set -g focus-events on
+
 set-option -g history-limit 200000
 
 # set tmux to 256 colors

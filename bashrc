@@ -34,6 +34,8 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+export PATH=/usr/local/go/bin:$PATH
+
 
 eval "$(gopass completion bash)"
 
@@ -75,6 +77,10 @@ shopt -s nocaseglob # Case-insensitive filename matching in filename expansion.
 # brew install jump
 # https://github.com/gsamokovarov/jump
 eval "$(jump shell --bind=z)"
+
+# brew install direnv
+# https://github.com/direnv/direnv
+eval "$(direnv hook bash)"
 
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $PWD \

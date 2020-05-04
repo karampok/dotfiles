@@ -4,18 +4,20 @@ import datetime
 
 template = """# {date}
 
-## Daily Journal
+- pomodoro
+- stay up (2 x 30min)
+- 2 x 10 pups
+- read 3 pockets (go,vim,arch)
+- code read (1 per week)
 
-* arrive at 08:30
+# Day
 
-* lunch at ...
-
-* leave at 17:45
-
-
-[TODO](TODO)
-
-
+08:30: Arrive
+11:00:
+11:30: Lunch @
+12:00:
+17:30: Leave
+--
 """
 
 date = (datetime.date.today() if len(sys.argv) < 2
