@@ -1,0 +1,56 @@
+#!/bin/bash
+
+RED="\[\033[31m\]"
+WHITE="\[\033[0m\]"
+COL_HOST='\e[36m'
+COL_CURRENT_PATH='\e[37m' # The color of the current directory full path
+COL_GIT_STATUS_CLEAN='\e[93m' # Color of fresh git branch name, with NO changes
+COL_GIT_STATUS_CHANGES='\e[92m' # Color of git branch, affter its diverged from remote
+
+## Text Styles
+
+
+## Config
+SHOW_GIT=true
+
+
+## If this is a valid git repo, echo the current branch name
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+## Echos what color the git branch should be (depending on changes)
+check_for_git_changes() {
+  if [[ "$(parse_git_branch)" ]]; then
+    if [[ $(git status --porcelain) ]]; then
+      echo ${COL_GIT_STATUS_CLEAN}
+    else
+      echo ${COL_GIT_STATUS_CHANGES}
+    fi
+  fi
+}
+
+
+RESET='\e[0m' # What color will comand outputs be in
+ITALIC='\e[3m'
+set_bash_prompt(){
+  status=$?
+
+  PS1="${RESET}"
+  PS1+="${ITALIC}${COL_HOST}@\h:${RESET}${COL_CURRENT_PATH}\w "
+
+  if [ "$SHOW_GIT" = true ] ; then
+    PS1+="$(check_for_git_changes)"
+    PS1+="$(parse_git_branch)"
+  fi
+
+  if [ $status = 0 ]; then
+    PS1+="\n${WHITE}▶ "
+  else
+    PS1+="\n${RED}▶ "
+  fi
+
+  PS1+="${RESET}"
+}
+
+PROMPT_COMMAND=set_bash_prompt

@@ -1,33 +1,16 @@
-### Install
-#  To source .bashrc, create .bash_profile with content:
-#    if [ -f ~/.bashrc ]; then . ~/.bashrc; fi
-###############
+set -o vi
 
-# Senstive functions which are not pushed to Github
-# It contains GOPATH, some functions, aliases etc...
-[ -r ~/.bash_private ] && source ~/.bash_private
-#[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
-
-
-if [ "$(uname)" == "Darwin" ]; then
-	# On Mac OS X: brew install bash-completion@2
-	if [ -f $(brew --prefix)/etc/profile.d/bash_completion.sh ]; then
-	  source $(brew --prefix)/etc/profile.d/bash_completion.sh
-	  # /usr/local/etc/bash_completion.d/kubectl
-	fi
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
 fi
 
-# Get it from the original Git repo:
-# https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-if [ -f ~/.git-prompt.sh ]; then
-  source ~/.git-prompt.sh
-fi
-
-# # Get it from the original Git repo:
-# https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-if [ -f ~/.git-completion.bash ]; then
-  source ~/.git-completion.bash
-fi
+#################
+# Exports (custom)
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/bin"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export EDITOR="nvim"
+export LSCOLORS=cxBxhxDxfxhxhxhxhxcxcx
+export CLICOLOR=1
 
 ###############
 # Aliases (custom)
@@ -36,45 +19,25 @@ alias vim='nvim'
 alias vi='vim'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias compile-ssh-config='rm  ~/.ssh/config && cat ~/.ssh/configs/*.config > ~/.ssh/config'
 alias tmux="tmux -u"
 alias systemctl='systemctl --no-pager'
-alias sudo='sudo '
 alias k="kubectl"
 eval "$(kubectl completion bash)"
 complete -o default  -F __start_kubectl k
 
-#################
-# Git
-# Exports (custom)
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/bin"
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export EDITOR="nvim"
-export LSCOLORS=cxBxhxDxfxhxhxhxhxcxcx
-export CLICOLOR=1
 
 # enable GIT prompt options
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-#GO
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 
 eval "$(gopass completion bash)"
 
-###############
-# Bash settings
-# -- Prompt
-# If we don't use the below git master one, use this simple
-# PS1="\[$(tput setaf 6)\]\W\[$(tput sgr0)\]\[$(tput sgr0)\] \$ "
-
-# 1. Git branch is being showed
-# 2. Title of terminal is changed for each new shell
-# 3. History is appended each time
-export PROMPT_COMMAND='__git_ps1 "\[$(tput setaf 6)\]\W\[$(tput sgr0)\]\[$(tput sgr0)\]" " "; echo -ne "\033]0;${PWD##*/}\007"$'
+source ~/.bashprompt
 
 
 # -- History
@@ -123,7 +86,6 @@ echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-#[ -f ~/.dotfiles/mcfly.bash ] && source ~/.dotfiles/mcfly.bash
 
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
@@ -134,7 +96,6 @@ man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
-
 
 usermodmap=$HOME/.Xmodmap
 [[ $DISPLAY ]] && [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
