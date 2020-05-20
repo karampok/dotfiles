@@ -54,3 +54,6 @@ set_bash_prompt(){
 }
 
 PROMPT_COMMAND=set_bash_prompt
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $PWD \
+               "$(history 1| cut -c 8-)" >> ~/.bash_eternal'

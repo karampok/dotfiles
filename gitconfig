@@ -3,28 +3,19 @@
 	name = karampok
 	signingkey = E0DC1AAFF6FB7BE0FC533E3B5BD78E317944F776
 [alias]
-    ci = commit
     br = branch
     co = checkout
-    dic = diff --cached
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lol = log --graph --decorate --oneline
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    ls = ls-files
     unstage = reset HEAD --
     aliases = "!git config -l | grep alias | cut -c 7-"
     churn = !git --no-pager log --name-only --oneline | grep -v ' ' | sort | uniq -c | sort -nr | head
     open = "!f() { URL=$(git config remote.$1.url | cut -f2 -d:); xdg-open https://github.com/${URL%%.git}; }; f"
     browser = "!f() { git remote |fzf| xargs git open ; }; f"
-    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
-    pr = "!f() { git branch -D pr/$1; git fetch -fu ${2:-$(origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-    pr-clean = "!git for-each-ref refs/heads/pr/* --format=\"%(refname)\" | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
     review = "!f() { BASE=${1-$REVIEW_BASE}; FILES=${2-$(git files)}; export FILES; export BASE; git reviewdiff;  }; f"
     reviewdiff = !nvim +\"tabdo Gvdiffsplit ${BASE:-master}\" +\"let g:gitgutter_diff_base = '${BASE:-master}'\" -p $(git files)
-    files = !echo $BASE && git diff --diff-filter=d --name-only \"${BASE:-master}\"
-    reviewone = !nvim  +\"tabdo Gvdiffsplit $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\" +pwd
-    #review = !nvim -p $(git files) +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 
 [color]
     branch = auto
@@ -41,18 +32,30 @@
     changed = green
     untracked = cyan
 [core]
+    pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
     excludesfile = ~/.gitignore_global
     editor = nvim
     quotepath = false
-    pager = less -FXRS -x2
 [credential]
 	helper = !gopass git-credential $@
 [github]
     user = karampok
-[mergetool]
-    keepBackup = true
-[difftool "vimdiff"]
-    cmd = "nvim -d -u ~/.vimrc \"$LOCAL\" \"$REMOTE\""
 [commit]
     gpgsign = true
+    template = ~/.gitmessage
+[interactive]
+    diffFilter= delta --dark --plus-color="#012800" --minus-color="#340001" --theme="zenburn" --color-only
+[diff]
+    tool = vimdiff
+[merge]
+	tool = vimdiff
+[mergetool "vimdiff"]
+	path = nvim
+    keepBackup = true
+[difftool "vimdiff"]
+    cmd = "nvim \"+windo set nofen\" -d \"$LOCAL\" \"$REMOTE\" "
+[difftool]
+	prompt = false
+    trustExitCode = true
+
