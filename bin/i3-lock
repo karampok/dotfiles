@@ -2,12 +2,35 @@
 
 xidlehook \
   --not-when-fullscreen \
-  --timer normal 180 \
-    '' \
-    '' \
-  --timer primary 30 \
-    'i3lock -o -e -f' \
-    '' \
-  --timer normal 600 \
-    'systemctl suspend' \
-    ''
+  --socket /tmp/xidlehook.sock \
+  --timer 300  'i3lock -o -e -f' '' \
+  # --timer normal 600 \
+  #   'systemctl suspend' \
+  #   ''
+
+# xidlehook \
+#   --not-when-fullscreen \
+#   `# --not-when-audio` \
+#   --timer 300 \
+#     'xrandr --output "$(xrandr | grep primary | cut -d " " -f 1)" --brightness .1' \
+#     'xrandr --output "$(xrandr | grep primary | cut -d " " -f 1)" --brightness 1' \
+#   --timer 10 "$lock" ""
+
+
+# # Run xidlehook
+# xidlehook \
+#   `# Don't lock when there's a fullscreen application` \
+#   `# Dim the screen after 60 seconds, undim if user becomes active` \
+#   --timer 60 \
+#     'xrandr --output "$PRIMARY_DISPLAY" --brightness .1' \
+#     'xrandr --output "$PRIMARY_DISPLAY" --brightness 1' \
+#   `# Undim & lock after 10 more seconds` \
+#   --timer 10 \
+#     'xrandr --output "$PRIMARY_DISPLAY" --brightness 1; i3lock' \
+#     '' \
+#   `# Finally, suspend an hour after it locks` \
+#   --timer 3600 \
+#     'systemctl suspend' \
+#     ''
+
+

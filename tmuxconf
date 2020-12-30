@@ -56,19 +56,19 @@ set -g status-right '#[default]|#[fg=blue](ZRH #(TZ=Europe/Zurich date +%%H:%%M)
 
 
 ## COLORSCHEME: gruvbox dark
-set-option -g status "on"
-set-option -g status-style bg=colour237,fg=colour223 #bg1 #fg1
-set-window-option -g window-status-style bg=default,fg=white
-set-window-option -g window-status-activity-style bg=colour237,fg=colour248 #bg1 #fg3
-set-window-option -g window-status-current-style bg=white,fg=black
-set-option -g pane-active-border-style fg=colour250 #fg2
-set-option -g pane-border-style fg=colour237 #bg1
-set-option -g message-style bg=colour239,fg=colour223 #bg2 #fg1
-set-option -g message-command-style bg=colour239,fg=colour223 #fg3 #bg1
-set-option -g display-panes-active-colour colour250 #fg2
-set-option -g display-panes-colour colour237 #bg1
-set-window-option -g clock-mode-colour colour109 #blue
-set-window-option -g window-status-bell-style fg=colour235,bg=colour167 #bg, red
+# set-option -g status "on"
+# set-option -g status-style bg=colour237,fg=colour223 #bg1 #fg1
+# set-window-option -g window-status-style bg=default,fg=white
+# set-window-option -g window-status-activity-style bg=colour237,fg=colour248 #bg1 #fg3
+# set-window-option -g window-status-current-style bg=white,fg=black
+# set-option -g pane-active-border-style fg=colour250 #fg2
+# set-option -g pane-border-style fg=colour237 #bg1
+# set-option -g message-style bg=colour239,fg=colour223 #bg2 #fg1
+# set-option -g message-command-style bg=colour239,fg=colour223 #fg3 #bg1
+# set-option -g display-panes-active-colour colour250 #fg2
+# set-option -g display-panes-colour colour237 #bg1
+# set-window-option -g clock-mode-colour colour109 #blue
+# set-window-option -g window-status-bell-style fg=colour235,bg=colour167 #bg, red
 
 #set-option -g status-style attr="none"
 set-option -g status-justify "left"
@@ -76,6 +76,8 @@ set-option -g status-justify "left"
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-open'
 set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'jsec/tmux-gruvbox-light'
+
 #set -g @plugin 'christoomey/vim-tmux-navigator'
 
 run -b '~/.tmux/plugins/tpm/tpm'

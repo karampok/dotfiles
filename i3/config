@@ -1,8 +1,8 @@
 set $mod Mod1
-font xft:Sans 11
+font xft:Sans 10
 
 #bindsym $mod+c exec xclip -o | xclip -i -selection clipboard
-bindsym $mod+v nop
+#bindsym $mod+v nop
 
 # Borders
 # new_window pixel 1
@@ -11,12 +11,19 @@ default_border pixel 1
 new_float pixel 10
 focus_follows_mouse no
 
-bindsym $mod+Return exec WINIT_HIDPI_FACTOR=1 alacritty
+#bindsym $mod+Return exec WINIT_X11_SCALE_FACTOR=1 alacritty
+bindsym $mod+Return exec alacritty
+bindsym $mod+n exec alacritty -t mosh
 bindsym $mod+m exec i3lock --fuzzy
-bindsym $mod+i exec gopass ls --flat | rofi -dmenu | xargs --no-run-if-empty gopass show -c
-#bindsym $mod+Tab exec "rofi -show"
-bindsym $mod+Tab exec "rofi -combi-modi window -show combi -modi combi"
-bindsym $mod+o exec "rofi -combi-modi window,drun -show combi -modi combi"
+
+#bindsym $mod+Shift+v exec "CM_OUTPUT_CLIP=1 clipmenu"
+bindsym $mod+Shift+v exec "CM_LAUNCHER=rofi CM_OUTPUT_CLIP=1 clipmenu"
+
+
+bindsym $mod+Tab exec "rofi -show window -icon-theme Papirus -show-icons"
+bindsym $mod+o exec "rofi -show drun -icon-theme Papirus -show-icons"
+bindsym $mod+g exec i3-msg \"rename workspace to \\\"$(rofi -dmenu -p rename)\\\"\"
+
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r restart # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 
@@ -33,6 +40,7 @@ bindsym $mod+Shift+l move right
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
+
 # split in horizontal orientation
 # bindsym $mod+h split h
 # bindsym $mod+v split v
@@ -41,7 +49,7 @@ bindsym $mod+minus scratchpad show
 # focus the child container
 #bindsym $mod+d focus child
 
-# bindsym $mod+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -51,37 +59,71 @@ bindsym $mod+e layout toggle split
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+Shitf+Tab focus mode_toggle
+#bindsym $mod+Shitf+Tab focus mode_toggle
 
-set $ws1 "1-main"
-#set $ws2 "2-browser"
-#set $ws3 "3-chat"
-#set $ws4 "4-music"
+set $internal "eDP1"
+set $externalHome "DP1"
+set $officeRight "DP1-8"
+set $officeLeft "DP1-1-8"
+#set $externalHome "HDMI1"
 
-bindsym $mod+a workspace back_and_forth
-bindsym $mod+Shift+a move container to workspace back_and_forth
-#bindsym $mod+n workspace next
-#bindsym $mod+p workspace prev
+set $ws1 "1:me"
+set $ws2 "2:ana"
+workspace $ws1 output $externalHome
+workspace $ws2 output $externalHome
+workspace $ws3 output $externalHome
+
+# for_window [class="Chromium"] move to workspace $ws2
+
+# set $ws3 "3:ana"
+# for_window [class="Google-chrome"] move to workspace $ws3
+# workspace $ws3 output $internal
+
+# set $ws4 "4:music"
+# for_window [class="Spotify"] move to workspace $ws4
+# workspace $ws4 output $internal
+
+# set $ws5 "5:mosh"
+# for_window [title="mosh"] move to workspace $ws5
+# workspace $ws5 output $externalHome
+
+
+# workspaces
+#set $ws1 1
+#set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws0 0
+
+# switch to workspace
+bindsym $mod+space workspace back_and_forth
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
 
+# Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
-
-#assign [class="Alacritty"] $ws1
-#assign [class="Chromium"] $ws2
-#assign [class="Slack"] $ws3
-#assign [class="Spotify"] $ws3
-
-set $internal "eDP1"
-#set $external "HDMI1"
-set $external "DP2"
-workspace $ws2 output $external
-workspace $ws3 output $external
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws0
 
 bindsym $mod+r mode "resize"
 mode "resize" {
@@ -108,24 +150,9 @@ bar {
   }
     status_command exec i3-bar
     separator_symbol "│"
-    font xft:Sans 11
+    font xft:Sans 10
     position  top
-   # output $internal
-}
-# Shutdown, Suspend, Lock (e)
-bindcode $mod+Shift+26 mode "$mode_system"
-set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (h) shutdown
-mode "$mode_system" {
-  # (l)
-  bindcode 46 exec i3exit lock, mode "default"
-  # (e)
-  bindcode 27 exec "i3-nagbar -t warning -m 'exit i3?' -B 'Yes, exit i3' 'i3-msg exit'", mode "default"
-  # (h)
-  bindcode 43 exec i3exit shutdown, mode "default"
-
-  # back to normal: Enter or Escape
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
+#    output $internal
 }
 
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
@@ -140,23 +167,16 @@ bindsym --release Print exec --no-startup-id scrot -z
 bindsym --release Mod1+Print exec --no-startup-id scrot -zu
 bindsym --release Shift+Print exec --no-startup-id scrot -zs
 
-exec setxkbmap -model pc105 -layout us,gr -option grp:rctrl_rshift_toggle
-exec udiskie --no-automount --no-notify --tray --use-udisks2 &
 
+for_window [urgent=latest] focus
 for_window [instance="pavucontrol"] floating enable
 #for_window    [class=".*"]                   sticky enable
 #for_window    [window_role="pop-up"]         floating enable
 #for_window    [class="Pinentry"]             floating enable
 # for_window [title="^pinentry$"] floating enable
 #for_window [title="^pinentry$"] boarder pixel 1
-for_window [class="Alacritty"] title_format "<b>Alacritty</b>"
 for_window [class="Alacritty"] border pixel 3
 
-
-
-exec ~/bin/i3-lock
-exec --no-startup-id redshift -l 47.3769:8.5417 &
-exec_always "pgrep -x clipit || (clipit &)"
 
 #https://thomashunter.name/i3-configurator/
 # class                 border  backgr. text    indicator child_border
@@ -166,3 +186,12 @@ client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
+
+
+#exec --no-startup-id "CM_ONESHOT=1 clipmenud &"
+exec --no-startup-id clipmenud
+exec --no-startup-id srandrd autorandr -c
+exec --no-startup-id redshift -l 47.3769:8.5417 &
+exec setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle
+#exec setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle
+exec udiskie --no-automount --no-notify --tray --use-udisks2 &

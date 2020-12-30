@@ -45,6 +45,13 @@ LANG="en_US.UTF-8"
 LC_ALL="en_US.UTF-8"
 export LANG LC_ALL
 
+# Save multi-line commands to the history with embedded newlines
+# instead of semicolons -- requries cmdhist to be on.
+shopt -s lithist
+
+# -- Completion
+# -- Functions
+# -- Misc
 set -o ignoreeof; # Do not exit an interactive shell upon reading EOF.
 shopt -s checkwinsize # check windows size if windows is resized
 shopt -s dirspell direxpand # autocorrect directory if mispelled
@@ -82,3 +89,5 @@ man() {
 
 usermodmap=$HOME/.Xmodmap
 [[ $DISPLAY ]] && [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
+
+[[ -s "/home/karampok/.gvm/scripts/gvm" ]] && source "/home/karampok/.gvm/scripts/gvm"
