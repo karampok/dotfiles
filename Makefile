@@ -1,28 +1,25 @@
 all:
-	mkdir -p ~/.config/nvim
 	mkdir -p ~/.config/alacritty
+	mkdir -p ~/.config/i3
+	mkdir -p ~/.config/tmux
 
-#	[ -f ~/.config/nvim/init.vim ] || ln -s $(PWD)/vimrc ~/.config/nvim/init.vim
-#	[ -f ~/.vimrc ] || ln -s $(PWD)/vimrc ~/.vimrc
 	[ -f ~/.bashrc ] || ln -s $(PWD)/bashrc ~/.bashrc
-	[ -f ~/.git-prompt.sh ] || ln -s $(PWD)/git-prompt.sh ~/.git-prompt.sh
 	[ -f ~/.config/alacritty/alacritty.yml ] || ln -s $(PWD)/alacritty.yml ~/.config/alacritty/alacritty.yml
-	[ -f ~/.config/i3 ] || ln -s $(PWD)/i3 ~/.config/i3
-	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmuxconf ~/.tmux.conf
-#	[ -f ~/.tigrc ] || ln -s $(PWD)/tigrc ~/.tigrc
-	[ -f ~/.gitconfig ] || ln -s $(PWD)/gitconfig ~/.gitconfig
+	[ -f ~/.config/i3/config ] || ln -s $(PWD)/i3config ~/.config/i3/config
+	[ -f ~/.tmux.conf ] || ln -s $(PWD)/tmux.conf ~/.tmux.conf
+	#[ -f ~/.gitconfig ] || ln -s $(PWD)/gitconfig ~/.gitconfig
+	#[ -f ~/.tigrc ] || ln -s $(PWD)/tigrc ~/.tigrc
+	#[ -f ~/.git-prompt.sh ] || ln -s $(PWD)/git-prompt.sh ~/.git-prompt.sh
 
 	touch ~/.hushlogin  # don't show last login message
 
 clean:
-#	rm -f ~/.vimrc
-#	rm -f ~/.config/nvim/init.vim
-	rm -f ~/.config/i3
+	rm -f ~/.config/i3/config
 	rm -f ~/.config/alacritty/alacritty.yml
 	rm -f ~/.bashrc
 	rm -f ~/.git-prompt.sh
 	rm -f ~/.tmux.conf
-	rm -f ~/.git-prompt.sh
-	rm -f ~/.tigrc
+	# rm -f ~/.git-prompt.sh
+	# rm -f ~/.tigrc
 
 .PHONY: all

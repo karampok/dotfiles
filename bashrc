@@ -5,7 +5,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 #################
-# Exports (custom)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/bin"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export EDITOR="nvim"
@@ -16,7 +15,6 @@ export PATH=$PATH:$GOBIN
 export PATH=/usr/local/go/bin:$PATH
 
 ###############
-# Aliases (custom)
 alias vi='nvim'
 alias vi='vim'
 alias ls='ls --color=auto'
@@ -30,30 +28,23 @@ alias dc="docker-compose"
 alias d="docker"
 complete -F _docker_compose dc
 eval "$(gopass completion bash)"
-source ~/.bashprompt
+eval "$(jump shell --bind=z)" # https://github.com/gsamokovarov/jump
+eval "$(direnv hook bash)" # https://github.com/direnv/direnv
 
-# -- History
+
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+export LANG LC_ALL
 export HISTCONTROL=ignoreboth:erasedups
 export HISTFILE=~/.bash_history          # be explicit about file path
 export HISTSIZE=100000                   # in memory history size
 export HISTFILESIZE=100000               # on disk history size
 export HISTTIMEFORMAT='%F %T '
+set -o ignoreeof; # Do not exit an interactive shell upon reading EOF.
 shopt -s histappend # append to history, don't overwrite it
 shopt -s cmdhist    # save multi line commands as one command
-shopt -s lithist
-LANG="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
-export LANG LC_ALL
-
-# Save multi-line commands to the history with embedded newlines
-# instead of semicolons -- requries cmdhist to be on.
-shopt -s lithist
-
-# -- Completion
-# -- Functions
-# -- Misc
-set -o ignoreeof; # Do not exit an interactive shell upon reading EOF.
 shopt -s checkwinsize # check windows size if windows is resized
+shopt -s lithist # Save multi-line commands to the history with embedded newlines
 shopt -s dirspell direxpand # autocorrect directory if mispelled
 shopt -s autocd # auto cd if only the directory name is given
 shopt -s extglob #use extra globing features. See man bash, search extglob.
@@ -64,18 +55,20 @@ shopt -s no_empty_cmd_completion # Do not attempt completions on an empty line.
 shopt -s nocaseglob # Case-insensitive filename matching in filename expansion.
 
 
-# https://github.com/gsamokovarov/jump
-eval "$(jump shell --bind=z)"
-
-# https://github.com/direnv/direnv
-eval "$(direnv hook bash)"
-
-export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
-echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    export DISPLAY=localhost:10.0
+else
+  export GPG_TTY=$(tty)
+  gpgconf --launch gpg-agent
+  echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null
+fi
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+usermodmap=$HOME/.Xmodmap
+[[ $DISPLAY ]] && [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
+
+source ~/.bashprompt
 
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
@@ -86,8 +79,3 @@ man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
-
-usermodmap=$HOME/.Xmodmap
-[[ $DISPLAY ]] && [[ -f "$usermodmap" ]] && xmodmap "$usermodmap"
-
-[[ -s "/home/karampok/.gvm/scripts/gvm" ]] && source "/home/karampok/.gvm/scripts/gvm"
