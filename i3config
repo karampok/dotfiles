@@ -1,4 +1,4 @@
-set $mod Mod1
+set $mod Mod4
 font xft:Sans 10
 
 #bindsym $mod+c exec xclip -o | xclip -i -selection clipboard
@@ -37,6 +37,7 @@ bindsym $mod+Shift+l move right
 
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
+bindsym $mod+t [class="Alacritty"] scratchpad show
 
 
 # split in horizontal orientation
@@ -186,5 +187,5 @@ client.background       #ffffff
 exec --no-startup-id clipmenud
 exec --no-startup-id srandrd autorandr -c
 exec --no-startup-id redshift -l 47.3769:8.5417 &
-exec setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle -option ctrl:nocaps
+exec setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle -option ctrl:nocaps -option altwin:swap_alt_win
 exec udiskie --no-automount --no-notify --tray --use-udisks2 &
