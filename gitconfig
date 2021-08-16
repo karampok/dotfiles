@@ -53,5 +53,5 @@
   prompt = false
   trustExitCode = true
 [delta]
-  syntax-theme = gruvbox-light
+  syntax-theme = gruvbox
   side-by-side = true
