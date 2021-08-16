@@ -1,9 +1,15 @@
 set -x GOPATH $HOME/go
-set -x PATH $PATH /usr/local/go/bin $GOPATH/bin
+set -x PATH $PATH /usr/local/go/bin $GOPATH/bin $HOME/bin
 #set -gxp PATH $HOME/go/bin
 #set -gx GOBIN $HOME/go/bin
 set -gx EDITOR vim
 fish_vi_key_bindings
+
+# Ensure that GPG Agent is used as the SSH agent
+set -e SSH_AUTH_SOCK
+set -U -x SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+set -x GPG_TTY (tty)
+gpgconf --launch gpg-agent
 
 #set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
 #set -U fish_user_paths $HOME/.local/bin $fish_user_paths
