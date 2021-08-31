@@ -1,5 +1,6 @@
-set -x GOPATH $HOME/go
-set -x PATH $PATH /usr/local/go/bin $GOPATH/bin $HOME/bin
+set -x GOPATH $HOME/go/bin
+set -x ARKADE $HOME/.arkade/bin
+set -x PATH $PATH $ARKADE $GOPATH $HOME/bin
 #set -gxp PATH $HOME/go/bin
 #set -gx GOBIN $HOME/go/bin
 set -gx EDITOR vim
