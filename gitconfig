@@ -11,6 +11,15 @@
   churn = !git --no-pager log --name-only --oneline | grep -v ' ' | sort | uniq -c | sort -nr | head
   open = "!f() { URL=$(git config remote.$1.url | cut -f2 -d:); xdg-open https://github.com/${URL%%.git}; }; f"
   browser = "!f() { git remote |fzf| xargs git open ; }; f"
+  files = !git diff --name-only $(git merge-base HEAD \"${review_base:-main}\")
+	stat = !git diff --stat $(git merge-base HEAD \"${review_base:-main}\")
+	# split-diff style review using vim-fugitive Gdiff
+	review = !$EDITOR -p $(git files) +\"tabdo Gdiff ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+	reviewone = !$EDITOR -p +\"tabdo Gdiff ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+	reviewf = !$EDITOR -p $(git files | fzf -m --reverse --height 40%) +\"tabdo Gdiff ${review_base:-master}\" +\"let g:gitgutter_diff_base = '${review_base:-master}'\"
+	# Show a markdown-formatted summary of commits from {review_base:-master} until HEAD
+	pr-summary = !git log --reverse --format=\"- **%s** (%h)%n%n%w(74,2,2)%b\" \"${review_base:-master}\"..HEAD
+	root = rev-parse --show-toplevel
 [color]
   branch = auto
   diff = auto
@@ -53,5 +62,5 @@
   prompt = false
   trustExitCode = true
 [delta]
-  syntax-theme = gruvbox
+  syntax-theme = gruvbox-light
   side-by-side = true
