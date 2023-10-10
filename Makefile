@@ -15,6 +15,9 @@ all:
 
 	touch ~/.hushlogin  # don't show last login message
 
+config:
+	ln -s $(PWD)/.config/qutebrowser ~/.config/qutebrowser
+
 clean:
 	rm -f ~/.config/fish
 	rm -f ~/.config/i3/config

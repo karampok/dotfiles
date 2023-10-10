@@ -4,22 +4,11 @@ font xft:Sans 10
 
 focus_follows_mouse yes
 
-bindsym $mod+Return exec env XCURSOR_SIZE=16 alacritty
 #bindsym $mod+m exec xset dpms force off #i3lock -e -i /home/kka/.config/wallpapers/spaceshuttle.png
-bindsym $mod+m exec i3lock -e -i /home/kka/.config/wallpapers/redhat.png
+bindsym $mod+m exec i3lock -e --color 000000 -t -i /home/kka/.config/wallpapers/redhat_1920x1080.png
 
-bindsym $mod+Tab exec "rofi -show window -icon-theme Papirus -show-icons"
 bindsym $mod+o exec "rofi -show drun -icon-theme Papirus -show-icons"
-
 bindsym $mod+p exec "rofi-pass"
-# mode "password" {
-#     bindsym p exec "passScript.sh"
-#     bindsym t exec "passScript.sh --type"
-
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-#     bindsym $mod+r mode "default"
-# }
 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r restart # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -43,19 +32,32 @@ bindsym $mod+a focus parent
 bindsym $mod+d focus child
 bindsym $mod+f fullscreen toggle
 
+#set $scratch_pos move position center, resize set 1642 1042
+set $scratch_pos move position center, resize set 1042 1042, border pixel 2
+
+for_window [urgent=latest] focus
+for_window [instance="qutebrowser"] border  pixel 3
+for_window [instance="Alacritty"] border  pixel 3
+#for_window [instance="qutebrowser"] floating enable resize set 1042 1042; move position center; sticky disable
+for_window [title="Slack"] move scratchpad
+for_window [instance="spotify"] move scratchpad
+for_window [title="Google Calendar - Red Hat - Calendar*"] move scratchpad
+for_window [title="alacritty-scratch"] move scratchpad pixel 3
+for_window [title="^ChatGPT$"] move scratchpad
+for_window [instance="pavucontrol"] floating enable; move position center
+#for_window [title="neomutt-f-t14s-1000-.*.html - .*"] scratchpad show
+#for_window [class=Alacritty title="demo"] floating enable resize set 2042 1042; move position center
+#for_window [class=Alacritty title="demo"] move scratchpad;
+
 bindsym $mod+Shift+space move scratchpad
 bindsym $mod+Shift+minus floating toggle
-#bindsym $mod+backslash scratchpad show
-#for_window [title="neomutt-f-t14s-1000-.*.html - .*"] floating enable 
-for_window [instance="qutebrowser"] floating enable resize set 1042 1042; move position center
-for_window [instance="qutebrowser"] move scratchpad;
-for_window [title="neomutt-f-t14s-1000-.*.html - .*"] scratchpad show
-for_window [instance="pavucontrol"] floating enable; move position center
-
-bindsym $mod+backslash scratchpad show
-#bindsym $mod+space [class="Kitty"] scratchpad show
-bindsym $mod+space  scratchpad show
-bindsym $mod+BackSpace [class="Spotify"] scratchpad show
+bindsym $mod+backslash [title="^ChatGPT$"] scratchpad show, $scratch_pos
+bindsym $mod+BackSpace [class="Spotify"] scratchpad show, resize set 1248 1042, move position center
+bindsym $mod+0 [title="Google Calendar - Red Hat - Calendar*"] scratchpad show, resize set 1642 1042
+bindsym $mod+space [title="alacritty-scratch"] scratchpad show resize set 1248 1042
+bindsym $mod+Return [class="Slack"] scratchpad show, move position center, resize set 1900 1080
+#bindsym $mod+Return exec alacritty
+#bindsym $mod+space scratchpad show
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -70,6 +72,8 @@ set $ws0 internal
 
 # switch to workspace
 #bindsym $mod+space workspace back_and_forth
+#bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Tab exec "rofi -show window -icon-theme Papirus -show-icons"
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -77,8 +81,8 @@ bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 
 workspace $ws1 output "eDP-1"
-workspace $ws2 output "DP-2" 
-workspace $ws3 output "DP-2"
+workspace $ws2 output "DP-2-3" 
+workspace $ws3 output "DP-2-3"
 
 # move focused workspace between monitors
 bindsym $mod+Shift+Up move workspace to output up
@@ -92,7 +96,7 @@ bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
- 
+
 bindsym $mod+Left workspace prev
 bindsym $mod+Right workspace next
 
@@ -106,13 +110,11 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
-# Configure bindings for audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-#bindsym XF86AudioMicMute [instance="pavucontrol"] scratchpad show
-#exec  --no-startup-id pavucontrol
-#for_window [instance="pavucontrol"] move scratchpad
+# Configure bindings for audio controls audio
+bindsym XF86AudioMute exec volctl.sh mute
+bindsym XF86AudioRaiseVolume exec volctl.sh up
+bindsym XF86AudioLowerVolume exec volctl.sh down
+bindsym XF86AudioMicMute exec volctl.sh micmute
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -123,19 +125,13 @@ bindsym XF86AudioPrev exec playerctl previous
 # Configure bindings for brightness control
 bindsym XF86MonBrightnessUp exec "light -A 10; notify-send 'brightness up'"
 bindsym XF86MonBrightnessDown exec "light -U 10; notify-send 'brightness down'"
-
-bindsym XF86Display exec --no-startup-id ls ~/.screenlayout/ | rofi -dmenu |xargs -I{}  /bin/sh ~/.screenlayout/{}
-#bindsym XF86WLAN
-bindsym XF86Bluetooth exec --no-startup-id /usr/bin/python /usr/bin/blueman-applet
-#bindsym XF86Tools exec --no-startup-id vlc
-bindsym XF86Favorites  [class="Spotify"] scratchpad show
-
+bindsym XF86Display exec --no-startup-id ls ~/.screenlayout/ | rofi -dmenu |xargs -I{} /bin/sh ~/.screenlayout/{}
+#bindsym XF86WLAN exec --no-startup-id /usr/bin/python /usr/bin/blueman-applet
+bindsym XF86WLAN [class="Spotify"] scratchpad show, $scratch_pos
+bindsym XF86Favorites [class="Spotify"] scratchpad show, $scratch_pos
 bindsym --release Print exec --no-startup-id flameshot gui
 
-for_window [urgent=latest] focus
-for_window [instance="spotify"] move scratchpad
-
-#for_window    [class=".*"]                   sticky enable
+#for_window   [class=".*"]                  sticky enable
 #for_window    [window_role="pop-up"]         floating enable
 #for_window    [class="Pinentry"]             floating enable
 # for_window [title="^pinentry$"] floating enable
@@ -143,9 +139,16 @@ for_window [instance="spotify"] move scratchpad
 
 exec --no-startup-id "CM_SELECTIONS=clipboard CM_IGNORE_WINDOW=gopass clipmenud"
 bindsym $mod+Shift+v exec "CM_LAUNCHER=rofi CM_OUTPUT_CLIP=1 clipmenu"
+
+exec --no-startup-id xsetroot -solid "#000000"
+exec --no-startup-id feh --bg-scale --zoom fill ~/.config/wallpapers/redhat.png
+exec --no-startup-id alacritty -T alacritty-scratch --class alacritty-scratch -e tmux
 exec --no-startup-id srandrd autorandr -c
 exec --no-startup-id redshift -l 47.3769:8.5417 &
-exec setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle -option ctrl:nocaps #-option altwin:swap_alt_win
+exec setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle -option ctrl:nocaps
+#exec setxkbmap -layout us,gr -option grp:alt_space_toggle -option ctrl:nocaps
+#setxkbmap -layout us,gr -option grp:rctrl_rshift_toggle -option ctrl:nocaps #-option altwin:swap_alt_win
+
 #exec udiskie --no-automount --no-notify --tray --use-udisks2 &
 #exec --no-startup-id nm-applet
 
@@ -161,12 +164,11 @@ bar {
     urgent_workspace   #2F343A #900000 #FFFFFF
     binding_mode       #2F343A #900000 #FFFFFF
   }
-    status_command exec ~/bin/i3-bar
-    separator_symbol "│"
-    font pango:DejaVu Sans Mono, FontAwesome 10
-#font xft:Sans 10
-    position top
-#    tray_output primary
+  status_command exec taskset -c 0 ~/bin/i3-bar
+  separator_symbol "│"
+  font pango:DejaVu Sans Mono, FontAwesome 10
+  position top
+#  tray_output primary
 }
 
 # bar {
