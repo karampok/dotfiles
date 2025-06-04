@@ -1,0 +1,31 @@
+[user]
+  email = karampok@gmail.com
+  name = Konstantinos Karampogias
+  user = karampok
+  signingkey = FBA24943C9A42397
+
+[commit]
+  gpgsign = true
+  verify = true
+  verbose = 2
+  signoff = true
+  #template = ~/.gitmessage
+
+[core]
+  editor = nvim
+;   pager = delta
+;   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+;   excludesfile = ~/.gitignore_global
+;   quotepath = false
+
+[alias]
+  br = branch
+  co = checkout
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+[status]
+  showUntrackedFiles = yes
+[branch]
+  autoSetupRebase = always
+[safe]
+  directory = /mnt/gnas/rh-vimwiki
