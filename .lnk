@@ -14,5 +14,6 @@
 .config/systemd/user/mbsync-run.timer
 .config/systemd/user/mnt-gnas.mount
 .config/systemd/user/timers.target.wants/mbsync-run.timer
+.config/weechat
 .config/yambar
 .config/zathura
