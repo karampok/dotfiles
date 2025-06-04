@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync emails with mbsync on schedule
+
+[Timer]
+OnBootSec=1m
+OnCalendar=*:0/5
+Unit=mbsync-run.service
+
+[Install]
+WantedBy=timers.target

@@ -9,3 +9,4 @@
 .config/qutebrowser
 .config/river/init
 .config/river/init.d
+.config/systemd/user/mbsync-run.timer
