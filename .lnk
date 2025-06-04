@@ -1,3 +1,4 @@
+.config/alacritty/alacritty.toml
 .config/fuzzel/fuzzel.ini
 .config/mako/config
 .config/river/init
