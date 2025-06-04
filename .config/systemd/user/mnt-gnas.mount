@@ -1,0 +1,13 @@
+[Unit]
+Description=NFS Mount for GNAS
+After=network.target
+Wants=network-online.target
+
+[Mount]
+What=100.119.141.84:/volume1/homes/karampok
+Where=/mnt/gnas
+Type=nfs
+Options=defaults,_netdev,soft,timeo=30,noauto,user
+
+[Install]
+WantedBy=default.target

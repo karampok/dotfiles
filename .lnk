@@ -11,3 +11,4 @@
 .config/river/init.d
 .config/systemd/user/mbsync-run.service
 .config/systemd/user/mbsync-run.timer
+.config/systemd/user/mnt-gnas.mount
