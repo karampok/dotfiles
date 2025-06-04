@@ -15,6 +15,7 @@
 .config/systemd/user/mnt-gnas.mount
 .config/systemd/user/timers.target.wants/mbsync-run.timer
 .config/tmux
+.config/tmuxinator
 .config/wallpapers
 .config/weechat
 .config/yambar
