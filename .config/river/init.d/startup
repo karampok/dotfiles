@@ -1,0 +1,39 @@
+#!/bin/bash
+
+function start-yambar {
+  killall yambar
+
+  monitors=$(wlr-randr --json | jq -r '.[] | select(.enabled == true) | .name')
+
+  for monitor in ${monitors}; do
+    riverctl focus-output "${monitor}"
+    yambar &
+    sleep 0.2
+  done
+}
+
+function spawn_once {
+  pgrep -f "${1}" >/dev/null || riverctl spawn "${*} >/tmp/river/${1}.${XDG_VTNR}.${USER}.log 2>&1"
+}
+
+mkdir -p /tmp/river
+start-yambar
+spawn_once mako
+spawn_once kanshi
+riverctl spawn "wl-paste --type text --watch cliphist store"
+riverctl spawn "wl-paste --type image --watch cliphist store"
+
+spawn_once river-tag-overlay --background-colour 0xffffff \
+  --tag-amount 9 \
+  --square-padding 10 --anchors 0:0:1:0
+
+spawn_once swayidle \
+  timeout 600 \'swaylock -F -k -l -e -i ~/.config/wallpapers/redhat.png\' \
+  timeout 900 \'wlopm --off \\*\' resume \'wlopm --on \\*\' \
+  before-sleep \'swaylock -F -k -l -e -i ~/.config/wallpapers/redhat.png\'
+
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
+update-desktop-database "${HOME}/.local/share/applications"
+systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP PATH
+# systemctl --user status xdg-desktop-portal-wlr
+# spawn_once /usr/libexec/xdg-desktop-portal{,-gtk,-wlr}
