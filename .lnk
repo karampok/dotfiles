@@ -3,6 +3,7 @@
 .config/fuzzel/fuzzel.ini
 .config/ghostty/config
 .config/gopass
+.config/gtk-4.0
 .config/mako/config
 .config/river/init
 .config/river/init.d
