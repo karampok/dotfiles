@@ -2,6 +2,7 @@
 .config/bat/config
 .config/fuzzel/fuzzel.ini
 .config/ghostty/config
+.config/gopass
 .config/mako/config
 .config/river/init
 .config/river/init.d

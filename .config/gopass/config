@@ -1,0 +1,16 @@
+[core]
+	autosync = false
+	notifications = true
+	exportkeys = true
+	cliptimeout = 45
+	parsing = false
+	nopager = false
+	autoimport = true
+[age]
+	usekeychain = false
+[mounts]
+	path = /home/kka/.local/share/gopass/stores/root
+[generate]
+	autoclip = false
+[show]
+	safecontent = false
