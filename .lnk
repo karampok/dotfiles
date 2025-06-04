@@ -6,5 +6,6 @@
 .config/gtk-4.0
 .config/kanshi
 .config/mako/config
+.config/qutebrowser
 .config/river/init
 .config/river/init.d
