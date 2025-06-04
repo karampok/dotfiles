@@ -1,0 +1,9 @@
+[Unit]
+Description=Sync mail with mbsync
+
+[Service]
+Type=oneshot
+Nice=10
+ExecStart=/usr/bin/mbsync --config  /home/kka/.config/mutt/mbsyncrc-2 -Va
+ExecStartPost=/home/kka/.config/mutt/bin/sort-mails2.sh
+Environment="HOME=/home/kka"
