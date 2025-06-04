@@ -1,0 +1,12 @@
+[Unit]
+Description=Execute scripts on IMAP mailbox changes (new/deleted/updated messages) using IDLE, golang version.
+
+[Service]
+Type=simple
+ExecStart=/home/kka/go/bin/goimapnotify --debug --conf /home/kka/.config/mutt/redhat/imapnotify.conf
+Restart=always
+RestartSec=30
+Environment="HOME=/home/kka"
+
+[Install]
+WantedBy=default.target

@@ -9,6 +9,7 @@
 .config/qutebrowser
 .config/river/init
 .config/river/init.d
+.config/systemd/user/goimapnotify-work.service
 .config/systemd/user/mbsync-run.service
 .config/systemd/user/mbsync-run.timer
 .config/systemd/user/mnt-gnas.mount
