@@ -1,0 +1,232 @@
+bg_underline:
+  &bg_underline { stack: [{ underline: { size: 4, color: D8DEE9ff } }] }
+
+bg_background: &bg_background { stack: [{ background: { color: 81A1C1ff } }] }
+
+bg_both:
+  &bg_both {
+    stack:
+      [
+        { background: { color: 81A1C1ff } },
+        { underline: { size: 4, color: D8DEE9ff } },
+      ],
+  }
+
+bg_red:
+  &bg_red {
+    stack:
+      [
+        { background: { color: 81A1C1ff } },
+        { underline: { size: 4, color: ea6962ff } },
+      ],
+  }
+
+good:
+  &good {
+    margin: 1,
+    foreground: 000000ff,
+    deco: { background: { color: 0fd17aff } },
+  }
+warn:
+  &warn {
+    margin: 1,
+    foreground: 242424ff,
+    deco: { background: { color: ffd554ff } },
+  }
+error:
+  &error {
+    margin: 1,
+    foreground: ffffffff,
+    deco: { background: { color: ff4545ff } },
+  }
+
+bar:
+  height: 32
+  location: top
+  background: 000000ff
+  font: JetBrains Mono:pixelsize=15
+  monitor: "all"
+  center:
+    - script:
+        poll-interval: 60000
+        path: ~/.config/yambar/agenda.sh
+        content:
+          list:
+            items:
+              - map:
+                  conditions:
+                    allday == "": { string: { text: "" } }
+                    allday != "":
+                      { string: { right-margin: 0, text: "{allday}" } }
+              - map:
+                  conditions:
+                    now == "": { string: { text: "" } }
+                    now != "": { string: { text: "| 󰃰 {now}", <<: *warn } }
+              - map:
+                  conditions:
+                    day == "": { string: { text: "" } }
+                    day != "":
+                      {
+                        string: { left-margin: 0, max: 180, text: "| 󰃶 {day}" },
+                      }
+
+    - script:
+        poll-interval: 60000
+        path: ~/.config/yambar/mail.sh
+        content:
+          map:
+            conditions:
+              count > 0:
+                {
+                  string: { right-margin: 10, text: "| 󰇮  {count}", <<: *warn },
+                }
+              count == 0: { string: { text: "" } }
+  right:
+    - script:
+        poll-interval: 60000
+        path: ~/.config/yambar/net.sh
+        content:
+          list:
+            items:
+              - { string: { max: 15, text: "| {via} " } }
+              - map:
+                  conditions:
+                    ts: { string: { right-margin: 1, text: "| TS" } }
+                    ~ts:
+                      { string: { right-margin: 1, text: "| TS", <<: *error } }
+              - map:
+                  conditions:
+                    rh: { string: { right-margin: 1, text: "| RH" } }
+    - backlight:
+        name: intel_backlight
+        content:
+          - string:
+              {
+                text: "| 󰃠  {percent}% ",
+                on-click:
+                  {
+                    wheel-down: brightnessctl set 5%- &,
+                    wheel-up: brightnessctl set +5% &,
+                  },
+              }
+    - pipewire:
+        content:
+          list:
+            items:
+              - map:
+                  on-click: pavucontrol
+                  conditions:
+                    type == "sink":
+                      map:
+                        conditions:
+                          name == "bluez_output.4C_87_5D_58_8B_C2.1":
+                            string: { text: "| QC35 🎧" }
+                          name == "bluez_output.38_C4_3A_78_7D_FA.1":
+                            string: { text: "| AirPods 🎧" }
+                          name == "alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__Speaker__sink":
+                            string: { text: "| 🔈" }
+                    type == "source":
+                      map:
+                        conditions:
+                          icon == "audio-input-microphone":
+                            string: { text: "| 󰍬" }
+    - battery:
+        name: BAT0
+        poll-interval: 30000
+        anchors:
+          - string: &estimate { string: { text: " [{estimate}]" } }
+        content:
+          map:
+            #            on-click: /bin/sh -c "/home/$USER/.config/yambar/scripts/powerprofile-toggle.sh",
+            conditions:
+              state == unknown:
+                - string: { text: "BAT {capacity}% [{estimate}]" }
+              state == discharging:
+                map:
+                  conditions:
+                    capacity > 25:
+                      - string: { text: "| 󰂁 {capacity}%" }
+                      - <<: *estimate
+                    capacity <= 25:
+                      - string: { text: "| 󰁿 {capacity}%", <<: *warn }
+                      - <<: *estimate
+                    capacity < 10:
+                      - string: { text: "| 󰁻 {capacity}%", <<: *error }
+                      - <<: *estimate
+              state == "not charging":
+                map:
+                  conditions:
+                    capacity > 98:
+                      - string: { text: "| 󰁹 " }
+              state == charging:
+                map:
+                  conditions:
+                    capacity > 80:
+                      - string: { text: "| 󰂋  {capacity}%" }
+                    capacity <= 80:
+                      - string: { text: "| 󰢝  {capacity}%", <<: *good }
+              state == full:
+                - string: { text: "| 󰁹 " }
+    - clock:
+        time-format: "%H:%M"
+        date-format: "%d/%m/%Y"
+        content:
+          - string: { text: "|   {date} - {time}" }
+    # - label:
+    #     content:
+    #       string:
+    #         on-click: systemctl poweroff
+    #         text: 
+  left:
+    - river:
+        anchors:
+          - base: &river_base
+              left-margin: 10
+              right-margin: 10
+              default: { empty: {} }
+              conditions:
+                id == 1: { string: { text: 󰆍 } }
+                id == 2: { string: { text: 󰖟 } }
+                id == 3: { string: { text: 󰒱 } }
+                id == 4: { string: { text: 󰚩 } }
+                id == 5: { string: { text: 💻 } }
+                id == 6: { string: { text: 📅 } }
+                id == 7: { string: { text: 󰓇 } }
+                id == 8: { string: { text: 🏠 } }
+        content:
+          map:
+            on-click:
+              left: sh -c "riverctl set-focused-tags $((1 << ({id} - 1)))"
+              right: sh -c "riverctl toggle-focused-tags $((1 << ({id} -1)))"
+            conditions:
+              state == urgent:
+                map:
+                  <<: *river_base
+                  deco: *bg_red
+              state == invisible && occupied:
+                map:
+                  <<: *river_base
+                  deco: *bg_underline
+              state == invisible && ~occupied:
+                map:
+                  <<: *river_base
+              state == visible && occupied:
+                map:
+                  <<: *river_base
+              state == visible && ~occupied:
+                map:
+                  <<: *river_base
+              state == focused && ~occupied:
+                map:
+                  <<: *river_base
+                  deco: *bg_background
+              state == focused:
+                map:
+                  <<: *river_base
+                  deco: *bg_both
+    - foreign-toplevel:
+        content:
+          map:
+            conditions:
+              activated:
+                - string: { left-margin: 20, max: 40, text: "{app-id}" }

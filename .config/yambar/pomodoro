@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+printf -- '%s\n' "status|string|else"
+printf -- '%s\n' ""
