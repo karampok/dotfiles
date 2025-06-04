@@ -15,3 +15,4 @@
 .config/systemd/user/mnt-gnas.mount
 .config/systemd/user/timers.target.wants/mbsync-run.timer
 .config/yambar
+.config/zathura
