@@ -1,4 +1,5 @@
 .config/alacritty/alacritty.toml
+.config/bat/config
 .config/fuzzel/fuzzel.ini
 .config/mako/config
 .config/river/init
