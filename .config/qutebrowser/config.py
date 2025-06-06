@@ -1,3 +1,7 @@
+# type: ignore
+# pyright: ignore
+# pylsp: disable
+
 config.load_autoconfig(False)
 
 # config.set("colors.webpage.darkmode.enabled", False)
@@ -59,7 +63,7 @@ c.qt.args = ["auth-server-allowlist=*.redhat.com"]
 # c.tabs.background = True
 # c.tabs.padding = {'top': 3, 'bottom': 3, 'left': 5, 'right': 5}
 # c.tabs.position = "top"
-c.tabs.show = "always"
+c.tabs.show = "never"
 #
 # c.url.default_page = 'qute://bookmarks'
 c.url.searchengines = {
