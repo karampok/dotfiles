@@ -1,0 +1,1 @@
+/home/kka/gitspace/dotfiles/fish/config.fish

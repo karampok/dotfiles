@@ -1,5 +1,6 @@
 .config/alacritty/alacritty.toml
 .config/bat/config
+.config/fish/config.fish
 .config/fuzzel/fuzzel.ini
 .config/ghostty/config
 .config/gopass
