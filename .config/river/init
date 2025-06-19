@@ -8,52 +8,43 @@ gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 "$HOME"/.config/river/init.d/startup
 "$HOME"/.config/river/init.d/apps
 
-riverctl map normal Mod1 J focus-view next
-riverctl map normal Mod1 K focus-view previous
-# riverctl map normal $mod H focus-view left
-# riverctl map normal $mod J focus-view down
-# riverctl map normal $mod K focus-view up
-# riverctl map normal $mod L focus-view right
-riverctl map normal $mod F toggle-fullscreen
-riverctl map normal $mod P spawn tessen
-riverctl map normal $mod Space zoom
-riverctl map normal $mod+Shift H swap left
-riverctl map normal $mod+Shift J swap down
-riverctl map normal $mod+Shift K swap up
-riverctl map normal $mod+Shift L swap right
-riverctl map normal $mod+Shift F toggle-float
-riverctl map normal $mod+Shift Q close
-riverctl map normal $mod Period focus-output next
-riverctl map normal $mod Comma focus-output previous
-riverctl map normal $mod+Shift Down send-to-output down
-riverctl map normal $mod+Shift Left send-to-output left
-riverctl map normal $mod Left focus-output left
-riverctl map normal $mod Right focus-output right
-riverctl map normal $mod+Shift Right send-to-output right
-riverctl map normal $mod+Shift Up send-to-output up
+riverctl map normal Mod1 j focus-view next
+riverctl map normal Mod1 k focus-view previous
+riverctl map normal Mod1 f toggle-fullscreen
+riverctl map normal Mod1 Space zoom
+riverctl map normal Mod1+Shift J swap down
+riverctl map normal Mod1+Shift K swap up
+
+riverctl map normal Mod1+Shift F toggle-float
+riverctl map normal Mod1+Shift Q close
+
+riverctl map normal Mod1 Left focus-output left
+riverctl map normal Mod1 Right focus-output right
+riverctl map normal Mod1+Shift Right send-to-output right
+riverctl map normal Mod1+Shift Down send-to-output down
+riverctl map normal Mod1+Shift Left send-to-output left
+riverctl map normal Mod1+Shift Up send-to-output up
+
+riverctl map normal Mod1 Tab focus-previous-tags
+
+#spawn
 riverctl map normal $mod m spawn 'swaylock -c 000000 -F -k -l -e -i ~/.config/wallpapers/redhat.png'
-riverctl map normal $mod C spawn 'foot nvim -c "autocmd BufEnter * only" -c "lua require('orgmode').capture:open_template_by_shortcut('t')"'
-riverctl map normal $mod+Shift V spawn "cliphist list | fuzzel -d  | cliphist decode | wl-copy"
-riverctl map normal $mod Tab focus-previous-tags
-riverctl map normal None Print spawn 'grim -g "$(slurp)" \- | wl-copy'
+riverctl map normal $mod p spawn tessen
+riverctl map normal $mod+Shift V spawn "cliphist list | fuzzel -d | cliphist decode | wl-copy"
 
-#riverctl map-pointer normal $mod BTN_LEFT move-view
-riverctl map-pointer normal $mod+Shift BTN_LEFT move-view
-riverctl map-pointer normal $mod+Shift BTN_RIGHT resize-view
+riverctl map-pointer normal $mod BTN_LEFT move-view
+riverctl map-pointer normal $mod BTN_RIGHT resize-view
 
-# behaviour
 riverctl default-attach-mode top
 riverctl hide-cursor when-typing enabled
-riverctl set-cursor-warp on-focus-change
-riverctl focus-follows-cursor normal
+riverctl set-cursor-warp on-output-change
+riverctl focus-follows-cursor disabled
 
-riverctl map normal Mod1+Shift H send-layout-cmd rivertile "main-count +1"
-riverctl map normal Mod1+Shift L send-layout-cmd rivertile "main-count -1"
+#riverctl map normal Mod1+Shift H send-layout-cmd rivertile "main-count +1"
+#riverctl map normal Mod1+Shift L send-layout-cmd rivertile "main-count -1"
 # riverctl map normal $mod L send-layout-cmd rivertile "main-ratio +0.05"
 # riverctl map normal $mod+Alt J move down 100
 
-# Various media key mapping examples for both normal and locked mode which do
-# not have a modifier
 for mode in normal locked; do
   riverctl map $mode None XF86AudioRaiseVolume spawn 'volctl.sh up'
   riverctl map $mode None XF86AudioLowerVolume spawn 'volctl.sh down'
@@ -63,9 +54,9 @@ for mode in normal locked; do
   riverctl map $mode None XF86AudioPlay spawn 'playerctl play-pause'
   riverctl map $mode None XF86AudioPrev spawn 'playerctl previous'
   riverctl map $mode None XF86AudioNext spawn 'playerctl next'
-
   riverctl map $mode None XF86MonBrightnessUp spawn 'brightnessctl set +5%'
   riverctl map $mode None XF86MonBrightnessDown spawn 'brightnessctl set 5%-'
+  riverctl map $mode None Print spawn 'grim -g "$(slurp)" \- | wl-copy'
 done
 
 # Set background and border color
@@ -76,13 +67,5 @@ riverctl border-width 5
 
 riverctl keyboard-layout -options 'ctrl:nocaps,grp:win_space_toggle' 'us,gr'
 
-# Set the default layout generator to be rivertile and start it.
-# River will send the process group of the init executable SIGTERM on exit.
 riverctl default-layout rivertile
 rivertile -view-padding 1 -outer-padding 0 -main-location left & #--main-ratio 0.7 &
-
-echo "left" >"$HOME/.river"
-riverctl map normal Control+Shift Space spawn "bash -c '\
-[[ \$(cat $HOME/.river) == left ]] && \
-  (riverctl send-layout-cmd rivertile \"main-location right\" && echo right > $HOME/.river) || \
-  (riverctl send-layout-cmd rivertile \"main-location left\" && echo left > $HOME/.river)'"
