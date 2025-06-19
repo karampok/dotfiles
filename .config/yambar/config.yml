@@ -27,12 +27,19 @@ good:
     foreground: 000000ff,
     deco: { background: { color: 0fd17aff } },
   }
+highlight:
+  &highlight {
+    margin: 1,
+    foreground: 242424ff,
+    deco: { background: { color: d0d0d0ff } },
+  }
 warn:
   &warn {
     margin: 1,
     foreground: 242424ff,
-    deco: { background: { color: ffd554ff } },
+    deco: { background: { color: ff6b6bff } },
   }
+
 error:
   &error {
     margin: 1,
@@ -44,7 +51,7 @@ bar:
   height: 32
   location: top
   background: 000000ff
-  font: JetBrains Mono:pixelsize=15
+  font: JetBrains Mono:pixelsize=12
   monitor: "all"
   center:
     - script:
@@ -61,7 +68,7 @@ bar:
               - map:
                   conditions:
                     now == "": { string: { text: "" } }
-                    now != "": { string: { text: "| 󰃰 {now}", <<: *warn } }
+                    now != "": { string: { text: "| 󰃰 {now}", <<: *highlight } }
               - map:
                   conditions:
                     day == "": { string: { text: "" } }
@@ -78,7 +85,7 @@ bar:
             conditions:
               count > 0:
                 {
-                  string: { right-margin: 10, text: "| 󰇮  {count}", <<: *warn },
+                  string: { right-margin: 10, text: "| 󰇮  {count}", <<: *highlight },
                 }
               count == 0: { string: { text: "" } }
   right:
@@ -140,17 +147,17 @@ bar:
             #            on-click: /bin/sh -c "/home/$USER/.config/yambar/scripts/powerprofile-toggle.sh",
             conditions:
               state == unknown:
-                - string: { text: "BAT {capacity}% [{estimate}]" }
+              - string: { text: "BAT {capacity}% [{estimate}]", <<: *warn }
               state == discharging:
                 map:
                   conditions:
-                    capacity > 25:
+                    capacity > 35:
                       - string: { text: "| 󰂁 {capacity}%" }
                       - <<: *estimate
-                    capacity <= 25:
+                    capacity <= 35:
                       - string: { text: "| 󰁿 {capacity}%", <<: *warn }
                       - <<: *estimate
-                    capacity < 10:
+                    capacity < 15:
                       - string: { text: "| 󰁻 {capacity}%", <<: *error }
                       - <<: *estimate
               state == "not charging":
@@ -167,6 +174,8 @@ bar:
                       - string: { text: "| 󰢝  {capacity}%", <<: *good }
               state == full:
                 - string: { text: "| 󰁹 " }
+              default:
+                - string: { text: "| 󰂑 {capacity}% [{state}]", <<: *warn }
     - clock:
         time-format: "%H:%M"
         date-format: "%d/%m/%Y"
