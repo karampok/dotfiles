@@ -10,6 +10,8 @@ gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 
 riverctl map normal Mod1 j focus-view next
 riverctl map normal Mod1 k focus-view previous
+riverctl map normal Mod1 l nop
+riverctl map normal Mod1 f nop
 riverctl map normal Mod1 f toggle-fullscreen
 riverctl map normal Mod1 Space zoom
 riverctl map normal Mod1+Shift J swap down
