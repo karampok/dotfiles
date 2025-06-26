@@ -91,3 +91,4 @@ gemini https://gemini.google.com/app
 ci https://docs.ci.openshift.org/docs/internals/images-in-ci/
 backport https://docs.google.com/document/d/1PC87sSFa_zGCk95kXDW-wrVxnlgBmkHqpOgQnd4bbUw/edit?tab=t.0
 etherpad https://etherpad.opendev.org/p/swiss
+talm https://github.com/openshift-kni/cluster-group-upgrades-operator

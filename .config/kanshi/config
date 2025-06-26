@@ -1,25 +1,28 @@
 profile home {
 	output eDP-1 disable
 	output "Dell Inc. DELL P2418D MY3ND99L0U5T" mode 2560x1440
+  exec ~/.config/river/init.d/startup
 }
 
 profile home-green {
 	output eDP-1 disable
 	output "Dell Inc. DELL P2421DC 9SXNR63" mode 2560x1440
+  exec ~/.config/river/init.d/startup
 }
-
-
 
 profile office2 {
 	output eDP-1 disable
 	output "Samsung Electric Company LF32TU87 HNTT100833" mode 2560x1440 position 1920,-360
+  exec ~/.config/river/init.d/startup
 }
 
 profile office {
 	output eDP-1 disable
 	output "Samsung Electric Company LF32TU87 HNTT100819" mode 3840x2160 position 1920,-360 scale 1.5
+  exec ~/.config/river/init.d/startup
 }
 
 profile {
 	output eDP-1 enable
+  exec ~/.config/river/init.d/startup
 }
