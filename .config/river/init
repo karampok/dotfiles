@@ -11,14 +11,13 @@ gsettings set org.gnome.desktop.interface gtk-key-theme "Emacs"
 riverctl map normal Mod1 j focus-view next
 riverctl map normal Mod1 k focus-view previous
 riverctl map normal Mod1 l nop
-riverctl map normal Mod1 f nop
 riverctl map normal Mod1 f toggle-fullscreen
 riverctl map normal Mod1 Space zoom
 riverctl map normal Mod1+Shift J swap down
 riverctl map normal Mod1+Shift K swap up
 
-riverctl map normal Mod1+Shift F toggle-float
-riverctl map normal Mod1+Shift Q close
+riverctl map normal Mod1+Shift f toggle-float
+riverctl map normal Mod1+Shift q close
 
 riverctl map normal Mod1 Left focus-output left
 riverctl map normal Mod1 Right focus-output right
@@ -40,7 +39,7 @@ riverctl map-pointer normal $mod BTN_RIGHT resize-view
 riverctl default-attach-mode top
 riverctl hide-cursor when-typing enabled
 riverctl set-cursor-warp on-output-change
-riverctl focus-follows-cursor disabled
+riverctl focus-follows-cursor normal
 
 #riverctl map normal Mod1+Shift H send-layout-cmd rivertile "main-count +1"
 #riverctl map normal Mod1+Shift L send-layout-cmd rivertile "main-count -1"

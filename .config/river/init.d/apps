@@ -17,7 +17,7 @@ riverctl map normal Mod1 0 spawn "riverctl set-focused-tags $((1 << 0))"
 riverctl map normal Mod1+Shift 0 spawn "riverctl toggle-focused-tags $((1 << 0))"
 
 spawn_once 'alacritty -T main'
-riverctl rule-add -app-id Alacritty -title "main" tags $((1 << 1))
+riverctl rule-add -app-id Alacritty tags $((1 << 1))
 riverctl map normal Mod1 1 spawn "riverctl toggle-focused-tags $((1 << 1))"
 riverctl map normal Mod1+Shift 1 spawn "riverctl set-focused-tags $((1 << 1))"
 
@@ -31,10 +31,14 @@ riverctl rule-add -app-id com.slack.Slack tags $((1 << 3))
 riverctl map normal Mod1 3 spawn "riverctl toggle-focused-tags $((1 << 3))"
 riverctl map normal Mod1+Shift 3 spawn "riverctl set-focused-tags $((1 << 3))"
 
-spawn_once 'google-chrome-stable --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan' #meet
-riverctl rule-add -title "*Google Meet*" tags $((1 << 4))
+riverctl spawn 'google-chrome-stable --app-id=kjgfgldnnfoeklkmfkjfagphfepbbdan' #meet
+riverctl rule-add -app-id "*kjgfgldnnfoeklkmfkjfagphfepbbdan*" tags $((1 << 4))
 riverctl map normal Mod1 4 spawn "riverctl toggle-focused-tags $((1 << 4))"
 riverctl map normal Mod1+Shift 4 spawn "riverctl set-focused-tags $((1 << 4))"
+
+riverctl rule-add -app-id "Cursor" tags $((1 << 5))
+riverctl map normal Mod1 5 spawn "riverctl toggle-focused-tags $((1 << 5))"
+riverctl map normal Mod1+Shift 5 spawn "riverctl set-focused-tags $((1 << 5))"
 
 #Floats
 spawn_once 'google-chrome-stable --app-id=caidcmannjgahlnbpmidmiecjcoiiigg' #gemini
