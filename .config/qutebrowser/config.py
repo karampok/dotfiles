@@ -34,6 +34,8 @@ config.set("content.javascript.clipboard", "access-paste")
 # c.completion.height = '30%'
 c.completion.open_categories = ["quickmarks"]  #'bookmarks', 'history']
 
+
+#c.zoom.default = "125%"
 #
 # c.content.autoplay = False
 # c.content.geolocation = False

@@ -6,17 +6,18 @@ riverctl rule-add -title "Open Folder" float
 riverctl rule-add -app-id nm-openconnect-auth-dialog float
 riverctl rule-add -app-id org.pulseaudio.pavucontrol float
 riverctl rule-add -app-id blueman-manager float
+riverctl rule-add -app-id org.gnupg.pinentry-qt float
 
 function spawn_once {
   pgrep -f "${1}" >/dev/null || riverctl spawn "${*} >/tmp/river/${1}.${XDG_VTNR}.${USER}.log 2>&1"
 }
 
-spawn_once 'flatpak run app.zen_browser.zen'
-riverctl rule-add -app-id zen tags $((1 << 0))
-riverctl map normal Mod1 0 spawn "riverctl set-focused-tags $((1 << 0))"
-riverctl map normal Mod1+Shift 0 spawn "riverctl toggle-focused-tags $((1 << 0))"
+spawn_once 'firefox'
+riverctl rule-add -app-id  org.mozilla.firefox tags $((1 << 9))
+riverctl map normal Mod1 0 spawn "riverctl set-focused-tags $((1 << 9))"
+riverctl map normal Mod1+Shift 0 spawn "riverctl toggle-focused-tags $((1 << 9))"
 
-spawn_once 'alacritty -T main'
+spawn_once 'alacritty'
 riverctl rule-add -app-id Alacritty tags $((1 << 1))
 riverctl map normal Mod1 1 spawn "riverctl toggle-focused-tags $((1 << 1))"
 riverctl map normal Mod1+Shift 1 spawn "riverctl set-focused-tags $((1 << 1))"

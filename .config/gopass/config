@@ -14,3 +14,7 @@
 	autoclip = false
 [show]
 	safecontent = false
+[recipients "age"]
+	hash = a6a8458d64facd84c5b0bff21cdddd342e67cc8c96461997ad821bc6cba05f77
+[mounts "age"]
+	path = /home/kka/.local/share/gopass/stores/age

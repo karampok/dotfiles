@@ -92,3 +92,7 @@ ci https://docs.ci.openshift.org/docs/internals/images-in-ci/
 backport https://docs.google.com/document/d/1PC87sSFa_zGCk95kXDW-wrVxnlgBmkHqpOgQnd4bbUw/edit?tab=t.0
 etherpad https://etherpad.opendev.org/p/swiss
 talm https://github.com/openshift-kni/cluster-group-upgrades-operator
+shadowbot https://docs.google.com/document/d/1WyYP3nQBpWK5IWFKfo2bBeN7M8TcS3MImoLeS07eQwA/edit?tab=t.0#heading=h.gjdgxs
+konflux-doc https://konflux.pages.redhat.com/docs/users/deployments.html
+help https://redhat.service-now.com/help
+prow https://prow.ci.openshift.org/?author=karampok&state=failure

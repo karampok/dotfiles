@@ -16,7 +16,6 @@ riverctl map normal Mod1 Space zoom
 riverctl map normal Mod1+Shift J swap down
 riverctl map normal Mod1+Shift K swap up
 
-riverctl map normal Mod1+Shift f toggle-float
 riverctl map normal Mod1+Shift q close
 
 riverctl map normal Mod1 Left focus-output left

@@ -70,7 +70,7 @@ agenda-now-create-org-files() (
   echo ""
 )
 
-agenda-now-create-org-files
+#agenda-now-create-org-files
 
 # agenda() (
 #   gcalcli agenda --nostarted --nodeclined --tsv "$(date '+%H:%M')" "$(date -d "23:59" '+%H:%M')" --military |

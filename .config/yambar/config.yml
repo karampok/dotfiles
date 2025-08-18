@@ -51,7 +51,7 @@ bar:
   height: 32
   location: top
   background: 000000ff
-  font: JetBrains Mono:pixelsize=12
+  font: JetBrains Mono:pixelsize=30
   monitor: "all"
   center:
     - script:
@@ -194,12 +194,12 @@ bar:
               right-margin: 10
               default: { empty: {} }
               conditions:
-                id == 1: { string: { text: 🏠 } }
                 id == 2: { string: { text: 󰆍 } }
                 id == 3: { string: { text: 󰖟 } }
                 id == 4: { string: { text: 󰒱 } }
                 id == 5: { string: { text: 💻 } }
                 id == 6: { string: { text: 󰚩 } }
+                id == 10: { string: { text: 🏠 } }
         content:
           map:
             on-click:
